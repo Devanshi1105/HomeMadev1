@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:local="clr-namespace:LetsCookApp.CustomViews;assembly=LetsCookApp"
+             x:Class="LetsCookApp.Views.ShoppingListView" >
+    <StackLayout x:Name="MainStack" Spacing="0"  BackgroundColor="#f0eff5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="Black">
+            <ContentView HorizontalOptions="Start" VerticalOptions="Center" Padding="10,10">
+                <Image Source="menu" HorizontalOptions="Center" HeightRequest="25" WidthRequest="25" VerticalOptions="Center"/>
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Menu_Tapped"/>
+                </ContentView.GestureRecognizers>
+            </ContentView>
+            <local:CustomLabelLight Text="Shopping List" TextColor="#e74c3c" FontSize="20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  />
+            <ContentView HorizontalOptions="End" VerticalOptions="Center" Padding="10,10">
+                <Image Source="search" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Search_Tapped"/>
+                </ContentView.GestureRecognizers>
+            </ContentView>
+        </StackLayout>
+        <Grid RowSpacing="0" BackgroundColor="#d9d9d9" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="400" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ContentView Grid.Row="0"  BackgroundColor="#d9d9d9" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+                <Label Margin="10,0" Text="PAN SEARED RED SNAPPER" FontSize="18" TextColor="#e74c3c"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand"/>
+            </ContentView>
+            <local:CustomListView Grid.Row="1" x:Name="masterMenuList" ItemsSource="{Binding ShoppingList}"  RowHeight="80" HorizontalOptions="FillAndExpand" VerticalOptions="Start" SeparatorVisibility="None" BackgroundColor="White" >
+                <local:CustomListView.ItemTemplate>
+                    <DataTemplate>
+                        <local:CustomListViewCell>
+                            <local:CustomListViewCell.View>
+
+                                <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" VerticalOptions="StartAndExpand" Margin="5">
+                                    <Image Source="{Binding imgsource}" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="30" WidthRequest="30"/>
+                                    <local:CustomLabelRegular Text="{Binding Ingredient}" TextColor="Black" FontSize="15"   VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                                </StackLayout>
+                            </local:CustomListViewCell.View>
+                        </local:CustomListViewCell>
+                    </DataTemplate>
+                </local:CustomListView.ItemTemplate>
+            </local:CustomListView>
+
+        </Grid>
+
+    </StackLayout>
+</ContentPage>

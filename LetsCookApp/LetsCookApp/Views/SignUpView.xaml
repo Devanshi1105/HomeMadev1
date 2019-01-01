@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LetsCookApp.CustomViews;assembly=LetsCookApp"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="LetsCookApp.Views.SignUpView"  BackgroundColor="White" BackgroundImage="newback.jpg" >
+
+
+     <StackLayout x:Name="MainStack" HorizontalOptions="FillAndExpand" 
+VerticalOptions="FillAndExpand" >
+        <StackLayout Orientation="Horizontal" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+            <ContentView HorizontalOptions="Start" 
+VerticalOptions="Center" Padding="10,10,10,5">
+                <Image Source="cross1" HorizontalOptions="Center" 
+HeightRequest="30" WidthRequest="30" VerticalOptions="Center"/>
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Close_Tapped" />
+                </ContentView.GestureRecognizers>
+            </ContentView>
+
+            <ContentView HorizontalOptions="EndAndExpand" 
+VerticalOptions="Center" Padding="10,10,10,5">
+                <local:CustomLabelLight  Text="Signin" 
+TextColor="#ffffff" FontSize="20" HorizontalOptions="EndAndExpand" 
+VerticalOptions="Center"  />
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SignIn_Tapped" />
+                </ContentView.GestureRecognizers>
+            </ContentView>
+
+        </StackLayout>
+
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ScrollView  HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand" >
+
+                <StackLayout Spacing="0" HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand">
+
+                    <!--<StackLayout Orientation="Vertical" HeightRequest="200" HorizontalOptions="FillAndExpand"  BackgroundColor="#e8e7e6" Spacing="0"  Opacity="0.8" 
+VerticalOptions="Center" Margin="12,10,12,5">-->
+                    <Grid HeightRequest="200" HorizontalOptions="FillAndExpand"  BackgroundColor="#e8e7e6"    Opacity="0.8" 
+VerticalOptions="FillAndExpand" Margin="12,10,12,10">   
+                                <Grid.RowDefinitions> 
+                                    <RowDefinition Height="180"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+
+                                <controls:CircleImage 
+Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" 
+x:Name="imgphoto" BorderColor="Red" BorderThickness="1" Source="{Binding Picture}" 
+Aspect="AspectFit"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,10,0,10" />
+
+                                <Image x:Name="imgPlus" Grid.Column="1" Grid.Row="0" 
+Source="Imgplus.png"  Aspect="AspectFit" HorizontalOptions="End"  TranslationX="-25" TranslationY="15"
+VerticalOptions="Start"  >
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped_1" NumberOfTapsRequired="1"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        
+                    
+                    
+                    <StackLayout VerticalOptions="FillAndExpand" 
+HorizontalOptions="FillAndExpand" BackgroundColor="#e8e7e6" 
+Margin="12,0" Opacity="0.8" Padding="8,0,8,0" Spacing="0" >
+                        <Grid HorizontalOptions="FillAndExpand" 
+VerticalOptions="StartAndExpand" BackgroundColor="Black" 
+RowSpacing="0.3" ColumnSpacing="0">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="150"/>
+                                <RowDefinition Height="150"/>
+                            </Grid.RowDefinitions>
+
+                            <local:CustomEntryRegular Grid.Row="0" 
+Placeholder="User Name" Text="{Binding UserName}"  TextColor="Black" 
+ BackgroundColor="#e8e7e6"   PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"   
+ IsEnabled="{Binding IsEn}" x:Name="entUserName"/>
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="1" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Email Id" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding Email}"  Margin="0,0.3,0,0" IsEnabled="{Binding IsEn}" x:Name="entEmail" />
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="2" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Retype Email Id" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding RetypeEmail}"  Margin="0,0.3,0,0" IsEnabled="{Binding IsEn}" x:Name="entRetypeEmail" />
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="3" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Password" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding Password}" IsPassword="True" Margin="0,0.3,0,0" x:Name="entPassword" />
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="4" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Retype Password" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding RetypePassword}" IsPassword="True"  Margin="0,0.3,0,0" x:Name="entRetypePassword" />
+                            
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="5" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="First Name" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding FirstName}" x:Name="entFirstName" />
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="6" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Last Name" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding LastName}" x:Name="entLastName"  />
+
+                            <StackLayout Grid.Row="7"  Grid.Column="0"  HorizontalOptions="FillAndExpand" BackgroundColor="#e8e7e6" VerticalOptions="FillAndExpand">
+                                <local:CustomPicker TextColor="Black"   HorizontalOptions="FillAndExpand"  BackgroundColor="#e8e7e6"  HeightRequest="40" VerticalOptions="CenterAndExpand"   WidthRequest="200" Margin="0,0,10,0"   Image="loginarrow" Title="Choose Gender"
+                                     x:Name="drpgender" SelectedIndexChanged="drpgender_SelectedIndexChanged">
+                                    <local:CustomPicker.Items>
+                                        <x:String>Male</x:String>
+                                        <x:String>Female</x:String>
+                                        <x:String>Unknown</x:String>
+                                    </local:CustomPicker.Items>
+                                </local:CustomPicker>
+                            </StackLayout>
+
+                            <StackLayout  Grid.Column="0" Grid.Row="8" VerticalOptions="FillAndExpand" BackgroundColor="#e8e7e6"   HorizontalOptions="FillAndExpand" 
+                           Spacing="10" Orientation="Horizontal" >
+
+                                <local:CustomLabelRegular Margin="5,0,0,0" Text="Date of Birth"  TextColor="Gray" FontSize="18"  HorizontalTextAlignment="Center"     HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                                 
+                                <local:NullableDatePicker   TextColor="Black" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"    WidthRequest="200" x:Name="dobpickar" DateSelected="dobpickar_DateSelected" />
+
+                            </StackLayout> 
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="9" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Mobile Number" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding MobileNumber}" x:Name="entMobileNumber"  />
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="10" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Phone Number" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding PhoneNumber}" x:Name="entPhoneNumber" /> 
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="11" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Address1" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding Address1}" Margin="0,0.3,0,0" x:Name="entAddress1" />
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="12" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Address2" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding Address2}" x:Name="entAddress2"  />
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="13" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Address3" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding Address3}" x:Name="entAddress3" />
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="14" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="City" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding City}" Margin="0,0.3,0,0" x:Name="entCity" />
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="15" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Postcode" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding Postcode}" x:Name="entPostcode" />
+
+                            <local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="16" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="State" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding State}" Margin="0,0.3,0,0" x:Name="entState" />
+
+                            <!--<local:CustomEntryRegular Grid.Column="0" 
+Grid.Row="15" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Country" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding Country}" />-->
+                            <StackLayout Grid.Row="17" Grid.Column="0"  HorizontalOptions="FillAndExpand" BackgroundColor="#e8e7e6" VerticalOptions="FillAndExpand">
+                                <local:CustomPicker TextColor="Black"  HorizontalOptions="FillAndExpand"  BackgroundColor="#e8e7e6"   HeightRequest="40" VerticalOptions="CenterAndExpand"   WidthRequest="200" Margin="0,0,10,0"   Image="loginarrow"
+                       Title="Select Country"  x:Name="drpcountry" SelectedIndexChanged="drpcountry_SelectedIndexChanged"/> 
+                            </StackLayout>
+
+                            <local:PlaceholderEditor Grid.Column="0" 
+Grid.Row="18" BackgroundColor="#e8e7e6" TextColor="Black" 
+Placeholder="Hobbies" PlaceholderColor="Gray" 
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding Hobbies}" x:Name="edtHobbies"  />
+
+                            <local:PlaceholderEditor Grid.Column="0"  
+Grid.Row="19" BackgroundColor="#e8e7e6" Placeholder="About Me" 
+PlaceholderColor="Gray" TextColor="Black" HeightRequest="150"  
+HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+Text="{Binding AboutMe}" x:Name="entAboutMe" />
+                        </Grid>
+
+                        <local:CustomButtonRegular Text="{Binding 
+BtnText}"  TextColor="White" FontSize="18" BorderRadius="5" 
+BackgroundColor="#e74c3c" HorizontalOptions="FillAndExpand" 
+VerticalOptions="Center" Margin="12,10,12,20" Clicked="btntext_Clicked" />
+
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

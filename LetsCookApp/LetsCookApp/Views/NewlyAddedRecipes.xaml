@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:local="clr-namespace:LetsCookApp.CustomViews;assembly=LetsCookApp"
+             x:Class="LetsCookApp.Views.NewlyAddedRecipes">
+
+
+  <StackLayout x:Name="MainStack" Spacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="Black">
+      <ContentView HorizontalOptions="Start" VerticalOptions="Center" Padding="10,10">
+        <Image Source="menu" HorizontalOptions="Center" HeightRequest="25" WidthRequest="25" VerticalOptions="Center"/>
+        <ContentView.GestureRecognizers>
+          <TapGestureRecognizer Tapped="Menu_Tapped"/>
+        </ContentView.GestureRecognizers>
+      </ContentView>
+      <local:CustomLabelLight Text="Newly Added Recipes" TextColor="#e74c3c" FontSize="20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  />
+      <ContentView HorizontalOptions="End" VerticalOptions="Center" Padding="10,10">
+        <Image Source="search" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+        <ContentView.GestureRecognizers>
+          <TapGestureRecognizer Tapped="Search_Tapped"/>
+        </ContentView.GestureRecognizers>
+      </ContentView>
+    </StackLayout>
+
+
+    <local:CustomListView x:Name="listSubCatgory" ItemsSource="{Binding NewlyAddedRecipes}" HasUnevenRows="True"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorVisibility="None" >
+      <local:CustomListView.ItemTemplate>
+        <DataTemplate>
+          <local:CustomListViewCell>
+            <local:CustomListViewCell.View>
+              <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="136"/>
+                  <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                                <Image Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Aspect="AspectFill" Source="{Binding Image }" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="Recipe_Tapped"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+
+                                <Grid  Grid.Row="1"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Opacity=".8" BackgroundColor="Black">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="200"/>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="6"/>
+                    <RowDefinition Height="22"/>
+
+                  </Grid.RowDefinitions>
+
+                  <local:CustomLabelLight  Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Name}" FontAttributes="Bold" TextColor="#e74c3c" FontSize="14" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0" LineBreakMode="TailTruncation"/>
+
+                  <StackLayout  Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="0"  VerticalOptions="Start" Margin="10,0">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start">
+                      <local:CustomLabelLight Text="LIKE" TextColor="White" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center"/>
+                      <Image Aspect="AspectFit" Source="liket" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="15" WidthRequest="15"/>
+                      <local:CustomLabelLight Text="{Binding Likes}" TextColor="White" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </StackLayout>
+                  </StackLayout>
+
+                  <StackLayout  Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="0"  VerticalOptions="Start" Margin="10,0,0,15">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                      <local:CustomLabelLight Text="SHARE" TextColor="White" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center"/>
+                      <Image Aspect="AspectFit" Source="sharet" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="15" WidthRequest="15"/>
+                      <local:CustomLabelLight Text="{Binding Shares}" TextColor="White" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </StackLayout>
+                  </StackLayout>
+
+
+                  <StackLayout  Spacing="0"  Grid.Row="0" Grid.RowSpan="3" Grid.Column="2"  Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Margin="0,0,0,12">
+
+                    <local:CustomRatingView x:Name="userRate" Rating="{Binding Rating}" StarSpace="5" StarSize ="18"/>
+                    <Image Aspect="AspectFit" Margin="2,0,0,0" Source="expand.png" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="35" WidthRequest="35" />
+
+                  </StackLayout>
+                </Grid>
+              </Grid>
+            </local:CustomListViewCell.View>
+          </local:CustomListViewCell>
+        </DataTemplate>
+      </local:CustomListView.ItemTemplate>
+    </local:CustomListView>
+  </StackLayout>
+</ContentPage>

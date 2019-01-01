@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:local="clr-namespace:LetsCookApp.CustomViews;assembly=LetsCookApp"
+             x:Class="LetsCookApp.Views.HelpMeView">
+
+    <StackLayout x:Name="MainStack" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="Black">
+            <ContentView HorizontalOptions="Start" VerticalOptions="Center" Padding="10,10">
+                <Image Source="menu" HorizontalOptions="Center"  HeightRequest="25" WidthRequest="25" VerticalOptions="Center"/>
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Menu_Tapped"/>
+                </ContentView.GestureRecognizers>
+            </ContentView>
+            <local:CustomLabelLight Text="Please Help Me" TextColor="#e74c3c" FontSize="20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  />
+            <ContentView HorizontalOptions="End" VerticalOptions="Center" Padding="10,10">
+                <Image Source="search" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="False"/>
+            </ContentView>
+        </StackLayout>
+
+        <ScrollView  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Vertical"  HorizontalOptions="CenterAndExpand"  Spacing="0" VerticalOptions="Center" Margin="0,20,0,0" >
+                    <local:CustomLabelRegular Text="Please feel free to ask anything we would " TextColor="Black" FontSize="16" FontAttributes ="Bold"  HorizontalOptions="Center" VerticalOptions="Center">
+                    </local:CustomLabelRegular>
+                    <local:CustomLabelRegular Text="love to solve any of your issues! " TextColor="Black" FontSize="16" FontAttributes ="Bold"   HorizontalOptions="Center" VerticalOptions="Center">
+                    </local:CustomLabelRegular>
+
+                </StackLayout>
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" BackgroundColor="White" Margin="15,0" Padding="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="1"/>
+
+                    </Grid.RowDefinitions>
+                    <local:CustomEntryRegular Grid.Column="0" Grid.Row="0" TextColor="Black" Text="{Binding Name}" Placeholder="Name" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                    <BoxView Grid.Column="0" Grid.Row="1" HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+
+                    <local:CustomEntryRegular Grid.Column="0" Grid.Row="2" TextColor="Black" Text="{Binding Email}" Placeholder="Email" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                    <BoxView Grid.Column="0" Grid.Row="3" HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+
+                    <local:CustomEntryRegular Grid.Column="0" Grid.Row="4" TextColor="Black" Text="{Binding Contact}" Placeholder="Contact" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                    <BoxView Grid.Column="0" Grid.Row="5" HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+
+                    <local:PlaceholderEditor  Grid.Column="0" Grid.Row="6" TextColor="Black" Text="{Binding Query}" Placeholder="Query" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+
+                </Grid>
+
+            </StackLayout>
+        </ScrollView>
+        <local:CustomButtonRegular  Text="SUBMIT" TextColor="#fefefe" FontSize="18" HeightRequest="50" BorderRadius="5" BackgroundColor="#e74c3c" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="15,10,15,20"
+                                    Command="{Binding SaveHelpCommand}"/>
+
+    </StackLayout>
+
+</ContentPage>

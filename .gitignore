@@ -3,3 +3,7 @@
 ################################################################################
 
 /LetsCookApp/LetsCookApp/obj/Debug
+/LetsCookApp/LetsCookApp.Droid/obj/Debug/81
+/LetsCookApp/LetsCookApp.iOS/obj/iPhone/Debug
+/packages
+/.vs/LetsCookApp/v15/Server/sqlite3

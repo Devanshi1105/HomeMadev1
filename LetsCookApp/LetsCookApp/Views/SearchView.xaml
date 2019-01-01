@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+               xmlns:local="clr-namespace:LetsCookApp.CustomViews;assembly=LetsCookApp"
+             x:Class="LetsCookApp.Views.SearchView" Title="Search"  BackgroundColor="Transparent">
+
+  <StackLayout x:Name="MainStack" Spacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="50" BackgroundColor="Black">
+      <ContentView HorizontalOptions="Start" VerticalOptions="Center" Padding="10,10">
+        <Image Source="menu" HorizontalOptions="Center" HeightRequest="25" WidthRequest="25" VerticalOptions="Center"/>
+        <ContentView.GestureRecognizers>
+          <TapGestureRecognizer Tapped="Menu_Tapped"/>
+        </ContentView.GestureRecognizers>
+      </ContentView>
+      <local:CustomLabelLight Text="Search" TextColor="#e74c3c" FontSize="20" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"  />
+      <ContentView HorizontalOptions="Start" VerticalOptions="Center" Padding="10,10">
+        <Image Source="close" HorizontalOptions="Center" HeightRequest="25" WidthRequest="25" VerticalOptions="Center"/>
+        <ContentView.GestureRecognizers>
+          <TapGestureRecognizer Tapped="OnClose"/>
+        </ContentView.GestureRecognizers>
+      </ContentView>
+    </StackLayout>
+       
+      <SearchBar Placeholder="What would you like to cook?" TextColor="Black" PlaceholderColor="#9A9A9A" BackgroundColor="#e8e7e6" HorizontalOptions="FillAndExpand" VerticalOptions="Start"/>
+
+  </StackLayout>
+
+</pages:PopupPage>

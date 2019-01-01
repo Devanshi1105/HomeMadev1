@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LetsCookApp.CustomViews;assembly=LetsCookApp"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="LetsCookApp.Views.CategoriesView">
+
+
+  <StackLayout x:Name="MainStack" Spacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="Black">
+      <ContentView HorizontalOptions="Start" VerticalOptions="Center" Padding="10,10">
+        <Image Source="menu" HorizontalOptions="Center" HeightRequest="25" WidthRequest="25" VerticalOptions="Center"/>
+        <ContentView.GestureRecognizers>
+          <TapGestureRecognizer Tapped="Menu_Tapped"/>
+        </ContentView.GestureRecognizers>
+      </ContentView>
+      <local:CustomLabelLight Text="Categories" TextColor="#e74c3c" FontSize="20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  />
+      <ContentView HorizontalOptions="End" VerticalOptions="Center" Padding="10,10">
+        <Image Source="search" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <ContentView.GestureRecognizers>
+          <TapGestureRecognizer Tapped="Search_Tapped"/>
+        </ContentView.GestureRecognizers>
+      </ContentView>
+    </StackLayout>
+
+    <local:CustomListView x:Name="categorieslist" VerticalOptions="FillAndExpand" HasUnevenRows="True" HorizontalOptions="FillAndExpand" SeparatorVisibility="None"  BackgroundColor="Black" ItemSelected="categorieslist_ItemSelected">
+      <local:CustomListView.ItemTemplate>
+        <DataTemplate>
+          <local:CustomListViewCell>
+            <local:CustomListViewCell.View>
+              <Grid  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="*"/>
+                  <RowDefinition Height="*"/>
+                  <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+ <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Aspect="AspectFill" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ></Image>
+                
+                <!--<ff:CachedImage Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Aspect="AspectFill" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" LoadingPlaceholder="icon.png" ErrorPlaceholder="error.png" DownsampleToViewSize="true" >
+                </ff:CachedImage>-->
+                <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
+                  <local:CustomLabelLight Text="{Binding Title}" TextColor="#ffffff" FontAttributes="Bold" FontSize="34" HorizontalOptions="Center" VerticalOptions="Center"  />
+                  <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image Source="recipes.png" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="25" WidthRequest="25"/>
+                    <local:CustomLabelLight Text="{Binding NoOfRecipes}" TextColor="#ffffff" FontAttributes="Bold" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"  />
+                  </StackLayout>
+                </StackLayout>
+                <!--<Grid.GestureRecognizers>
+                  <TapGestureRecognizer Tapped="SubCategories_Tapped"/>
+                </Grid.GestureRecognizers>-->
+              </Grid>
+            </local:CustomListViewCell.View>
+          </local:CustomListViewCell>
+        </DataTemplate>
+      </local:CustomListView.ItemTemplate>
+    </local:CustomListView>
+  </StackLayout>
+</ContentPage>
