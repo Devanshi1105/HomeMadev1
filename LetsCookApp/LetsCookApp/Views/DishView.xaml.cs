@@ -1,5 +1,6 @@
 ﻿
 
+using LetsCookApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace LetsCookApp.Views
 
             MessagingCenter.Subscribe<string>("data", "PlayVideo", async (view) =>
             {
-                 Urls = new System.Collections.ObjectModel.ObservableCollection<string>();
+                Urls = new System.Collections.ObjectModel.ObservableCollection<string>();
                 Urls.Add("" + vm.RecipeDishView.VideoUrl + "");
                 videoView.BackgroundColor = Color.Black;
                 videoView.ItemsSource = Urls;
@@ -64,7 +65,7 @@ namespace LetsCookApp.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-           
+
         }
         private void lst2_ItemTapped(object sender, ItemTappedEventArgs e)
         {
@@ -90,17 +91,30 @@ namespace LetsCookApp.Views
             Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
         }
         private void lst1_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            var item = e.Item as Contacts;
-            if (item.imgsource == "checkmarkon")
-            {
-                item.imgsource = "checkmark";
-            }
-            else
-            {
-                item.imgsource = "checkmarkon";
-            }
+        { 
+            var vm = App.AppSetup.CategoryViewModel;
+            var recipe = ((Image)sender).BindingContext as Ingredient;
+
+            //if (item.imgsource == "checkmarkon")
+            //{
+            //    item.imgsource = "checkmark";
+            //}
+            //else
+            //{
+            //    item.imgsource = "checkmarkon";
+            //}
+
+            vm.RecipeId = Convert.ToInt32(recipe.Id);
+            vm.SaveShoppingCommand.Execute(null);
         }
+
+        private void CustomButtonRegular_Clicked(object sender, EventArgs e)
+        {
+            var page = new EmailPopup();
+            Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
+        }
+
+       
     }
 
     public class Contacts

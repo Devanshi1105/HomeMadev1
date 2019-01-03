@@ -7,3 +7,7 @@
 /LetsCookApp/LetsCookApp.iOS/obj/iPhone/Debug
 /packages
 /.vs/LetsCookApp/v15/Server/sqlite3
+/LetsCookApp/LetsCookApp/bin/Debug
+/LetsCookApp/LetsCookApp.Droid/bin/Debug
+/LetsCookApp/LetsCookApp.Droid/obj/.cache
+/.vs/LetsCookApp/v15

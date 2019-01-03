@@ -14,6 +14,16 @@ namespace LetsCookApp.Models
         public string Quantity { get; set; }
         public string Unit { get; set; }
         public string Ingredientfor { get; set; }
+      
+
+        private string image= "checkmarkon";
+
+        public string Image
+        {
+            get { return image; }
+            set { image = value; }
+        }
+
     } 
 
     public class RecipeDishView

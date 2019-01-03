@@ -32,16 +32,41 @@ namespace LetsCookApp.ViewModels
             SaveShoppingCommand = new Command(() => SaveShoppingExecute());
             ShareRecipeBeEmailCommand = new Command(() => ShareRecipeBeEmailExecute());
         }
-		
-		
-		public void test()
-		{
-			
-			
-		}
+
+
+        public void test()
+        {
+
+
+        }
         #endregion
 
         #region Property
+
+        private string shareEmail;
+
+        public string ShareEmail
+        {
+            get { return shareEmail; }
+            set { shareEmail = value; RaisePropertyChanged(() => ShareEmail); }
+        }
+
+        private string firstName;
+
+        public string FirstName
+        {
+            get { return firstName; }
+            set { firstName = value; RaisePropertyChanged(() => FirstName); }
+        }
+
+        private string lastName;
+
+        public string LastName
+        {
+            get { return lastName; }
+            set { lastName = value; RaisePropertyChanged(() => LastName); }
+        }
+
 
         private int height = 40;
         public int TitleHeight
@@ -140,7 +165,7 @@ namespace LetsCookApp.ViewModels
             },
              (requestFailedReason) =>
              {
-                Device.BeginInvokeOnMainThread(() =>
+                 Device.BeginInvokeOnMainThread(() =>
                  {
                      //  UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
                      UserDialogs.Instance.HideLoading();
@@ -149,14 +174,14 @@ namespace LetsCookApp.ViewModels
         }
 
         public void GetSubCotegaryExecute()
-        { 
+        {
             var obj = new SubCategoryRequest()
             {
                 CatId = CatId
             };
             UserDialogs.Instance.ShowLoading("Requesting..");
             userManager.getSubCategory(obj, () =>
-            { 
+            {
                 var subCategoryResponse = userManager.SubCategoryResponse;
                 if (subCategoryResponse.StatusCode == 200)
                 {
@@ -174,8 +199,8 @@ namespace LetsCookApp.ViewModels
                  Device.BeginInvokeOnMainThread(() =>
                  {
                      UserDialogs.Instance.HideLoading();
-                     UserDialogs.Instance.Alert(requestFailedReason?.Message==null?"Network Error": requestFailedReason.Message, null, "OK");
-                  
+                     UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
+
                  });
              });
         }
@@ -200,6 +225,7 @@ namespace LetsCookApp.ViewModels
                         Ingredients = RecipeDishView.Ingredients;
                         Device.BeginInvokeOnMainThread(async () =>
                         {
+                            //await  App.Current.MainPage.Navigation.PushAsync(new DishView());
                             await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new DishView());
                         });
 
@@ -229,7 +255,7 @@ namespace LetsCookApp.ViewModels
                 {
                     Recipe_Id = RecipeId,
                     Comments = "This is nice recipe",
-                    Favorite="Yes",
+                    Favorite = "Yes",
                     Member_Id = Convert.ToInt32(App.AppSetup.HomeViewModel.UserId)
                 };
                 UserDialogs.Instance.ShowLoading("Requesting..");
@@ -238,7 +264,7 @@ namespace LetsCookApp.ViewModels
                     UserDialogs.Instance.HideLoading();
                     var savefaRrecipeResponse = userManager.SavefaRrecipeResponse;
                     if (savefaRrecipeResponse.StatusCode == 200)
-                    {  
+                    {
                         UserDialogs.Instance.Alert(savefaRrecipeResponse.Message, null, "OK");
                     }
                     else
@@ -262,7 +288,7 @@ namespace LetsCookApp.ViewModels
                 UserDialogs.Instance.Alert(ex.Message, null, "OK");
             }
         }
-         public void SaveShoppingExecute()
+        public void SaveShoppingExecute()
         {
             try
             {
@@ -278,7 +304,7 @@ namespace LetsCookApp.ViewModels
                     UserDialogs.Instance.HideLoading();
                     var saveShoppingResponse = userManager.SaveShoppingResponse;
                     if (saveShoppingResponse.StatusCode == 200)
-                    {  
+                    {
                         UserDialogs.Instance.Alert(saveShoppingResponse.Message, null, "OK");
                     }
                     else
@@ -311,16 +337,20 @@ namespace LetsCookApp.ViewModels
                 {
 
                     RecipeId = Convert.ToString(RecipeId),
-                    Email = App.AppSetup.HomeViewModel.Email
+                    Email = "santoshkundkar12@gmail.com",//ShareEmail,
+                    FirstName = FirstName,
+                    LastName = LastName
                 };
                 UserDialogs.Instance.ShowLoading("Requesting..");
                 userManager.ShareRecipeByEmail(obj, () =>
                 {
                     UserDialogs.Instance.HideLoading();
                     var response = userManager.ShareRecipeBeEmailResponse;
+
                     if (response.StatusCode == 200)
-                    { 
+                    {
                         UserDialogs.Instance.Alert(response.Message, null, "OK");
+                        Rg.Plugins.Popup.Services.PopupNavigation.PopAsync();
                     }
                     else
                     {
@@ -336,6 +366,7 @@ namespace LetsCookApp.ViewModels
 
                      });
                  });
+
             }
             catch (Exception ex)
             {

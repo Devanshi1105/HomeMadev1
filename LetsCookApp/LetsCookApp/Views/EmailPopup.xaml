@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:local="clr-namespace:LetsCookApp.CustomViews" xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LetsCookApp.Views.EmailPopup" Padding="20,40,20,60">
+    
+    <StackLayout x:Name="MainStack" HorizontalOptions="Center" VerticalOptions="FillAndExpand" BackgroundColor="White">
+
+        <ScrollView  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White" Margin="15,0" Padding="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="1"/>
+
+                </Grid.RowDefinitions>
+
+                <local:CustomEntryRegular Grid.Column="0" Grid.Row="0" TextColor="Black" Text="{Binding FirstName}" Placeholder="First Name" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                <BoxView Grid.Column="0" Grid.Row="1" HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+
+                <local:CustomEntryRegular Grid.Column="0" Grid.Row="2" TextColor="Black" Text="{Binding LastName}" Placeholder="Last Name" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                <BoxView Grid.Column="0" Grid.Row="3" HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+
+                <local:CustomEntryRegular Grid.Column="0" Grid.Row="4" TextColor="Black" Text="{Binding ShareEmail}" Keyboard="Email" Placeholder="Email for share" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+
+            </Grid>
+
+        </ScrollView>
+
+        <local:CustomButtonRegular  Text="Share" TextColor="#fefefe" FontSize="18" HeightRequest="50" BorderRadius="5" BackgroundColor="#e74c3c" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="15,10,15,20" Command="{Binding ShareRecipeBeEmailCommand}" />
+
+    </StackLayout>
+
+
+    </pages:PopupPage>
