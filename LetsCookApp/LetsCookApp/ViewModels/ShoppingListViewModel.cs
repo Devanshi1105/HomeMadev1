@@ -3,6 +3,7 @@ using LetsCookApp.Models;
 using LetsCookApp.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,28 +12,44 @@ using Xamarin.Forms;
 
 namespace LetsCookApp.ViewModels
 {
+ 
+
     public class ShoppingListViewModel : BaseViewModel
     {
         #region Constructor    
 
         public ICommand GetShoppingListByUserIdCommand { get; private set; }
+       
 
         public ShoppingListViewModel()
         {
-            GetShoppingListByUserIdCommand = new Command(() => GetShoppingListByUserIdExecute());
-
+            GetShoppingListByUserIdCommand = new Command(() => GetShoppingListByUserIdExecute()); 
         }
 
         #endregion
 
         #region Property
-         
+
+        private ObservableCollection<GroupedIngredientDetailModel> grouped;
+
+        public ObservableCollection<GroupedIngredientDetailModel> Grouped
+        {
+            get { return grouped; }
+            set { grouped = value; RaisePropertyChanged(() => Grouped); }
+        }
         private List<ShoppingList> shoppingList;
 
-        private List<ShoppingList> ShoppingList
+        public List<ShoppingList> ShoppingList
         {
             get { return shoppingList; }
             set { shoppingList = value; RaisePropertyChanged(() => ShoppingList); }
+        }
+          private List<IngredientDetail> ingredientDetails;
+
+        public List<IngredientDetail> IngredientDetails
+        {
+            get { return ingredientDetails; }
+            set { ingredientDetails = value; RaisePropertyChanged(() => IngredientDetails); }
         }
        
 
@@ -46,15 +63,31 @@ namespace LetsCookApp.ViewModels
 
         public void GetShoppingListByUserIdExecute()
         {
+            try
+            { 
             var obj = new GetShoppingListByUserIdRequest()
             {
-                UserId =Convert.ToInt32 (App.AppSetup.HomeViewModel.UserId),
+                UserId =Convert.ToInt32(App.AppSetup.HomeViewModel.UserId),
+             
             };
             UserDialogs.Instance.ShowLoading("Requesting..");
             userManager.GetShoppingListByUserId(obj, () =>
             {
 
                 var response = userManager.GetShoppingListByUserIdResponse;
+               
+                Grouped = new ObservableCollection<GroupedIngredientDetailModel>(); 
+                foreach (var item in response.ShoppingList)
+                {
+                    var IngredientDetailGroup = new GroupedIngredientDetailModel() { LongName = item.recipeDetails.RecipeTitle, ShortName = " " };
+                   
+                    foreach (var rec in item.recipeDetails.IngredientDetails)
+                    {
+                        IngredientDetailGroup.Add(new IngredientDetail() { IngredientId = rec.IngredientId, IngredientName = rec.IngredientName });
+                    }
+                    Grouped.Add(IngredientDetailGroup);
+                }
+                
                 if (response.StatusCode == 200)
                 {
                     UserDialogs.Instance.HideLoading();
@@ -70,10 +103,18 @@ namespace LetsCookApp.ViewModels
              {
                  Device.BeginInvokeOnMainThread(() =>
                  {
-                     //  UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
                      UserDialogs.Instance.HideLoading();
+                     UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
+                    
                  });
              });
+
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert(ex.Message, null, "OK");
+            }
         }
 
         #endregion

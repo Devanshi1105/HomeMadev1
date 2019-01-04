@@ -11,3 +11,5 @@
 /LetsCookApp/LetsCookApp.Droid/bin/Debug
 /LetsCookApp/LetsCookApp.Droid/obj/.cache
 /.vs/LetsCookApp/v15
+/LetsCookApp/LetsCookApp.Droid/obj
+/.vs
