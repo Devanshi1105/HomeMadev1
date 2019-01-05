@@ -19,25 +19,17 @@
                     <TapGestureRecognizer Tapped="Search_Tapped"/>
                 </ContentView.GestureRecognizers>
             </ContentView>
-        </StackLayout>
-        <Grid RowSpacing="0" BackgroundColor="#d9d9d9" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <!--<RowDefinition Height="40" />-->
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <!--<ContentView Grid.Row="0"  BackgroundColor="#d9d9d9" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
-                <Label Margin="10,0" Text="PAN SEARED RED SNAPPER" FontSize="18" TextColor="#e74c3c"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand"/>
-            </ContentView>--> 
-            <local:CustomListView Grid.Row="0" x:Name="masterMenuList" ItemsSource="{Binding Grouped}" 
-                                  IsGroupingEnabled="True" GroupDisplayBinding="{Binding LongName}"   GroupShortNameBinding="{Binding ShortName}"
+        </StackLayout> 
+            <local:CustomListView  x:Name="masterMenuList" ItemsSource="{Binding Grouped}" 
+                                  IsGroupingEnabled="True" GroupDisplayBinding="{Binding LongName}"  GroupShortNameBinding="{Binding ShortName}"  
          HasUnevenRows="True" ItemSelected="masterMenuList_ItemSelected"     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorVisibility="None" BackgroundColor="White" >
                 <local:CustomListView.ItemTemplate>
                     <DataTemplate>
                         <local:CustomListViewCell>
-                            <local:CustomListViewCell.View> 
-                                <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" VerticalOptions="StartAndExpand" Margin="5">
+                            <local:CustomListViewCell.View>
+
+                               
+                                <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" VerticalOptions="StartAndExpand" Margin="5"> 
                                     <Image Source="checkmarkon.png" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="30" WidthRequest="30"/>
                                     <local:CustomLabelRegular Text="{Binding IngredientName}" TextColor="Black" FontSize="15"   VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
                                 </StackLayout>
@@ -45,9 +37,6 @@
                         </local:CustomListViewCell>
                     </DataTemplate>
                 </local:CustomListView.ItemTemplate> 
-            </local:CustomListView>
-
-        </Grid>
-
+            </local:CustomListView> 
     </StackLayout>
 </ContentPage>

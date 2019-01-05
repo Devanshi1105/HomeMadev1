@@ -388,10 +388,10 @@ namespace LetsCookApp.ViewModels
                  },
                  (requestFailedReason) =>
                  {
-                     Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                     Device.BeginInvokeOnMainThread(() =>
                      {
                          UserDialogs.Instance.HideLoading();
-                         UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK"); 
+                         UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
                      });
                  });
 
@@ -434,11 +434,10 @@ namespace LetsCookApp.ViewModels
                 },
                  (requestFailedReason) =>
                  {
-                     Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                     Device.BeginInvokeOnMainThread(() =>
                      {
                          UserDialogs.Instance.HideLoading();
-                         UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
-                      
+                         UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
                      });
                  });
             }

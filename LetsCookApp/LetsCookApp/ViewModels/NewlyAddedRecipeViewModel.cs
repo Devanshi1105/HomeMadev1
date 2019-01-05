@@ -47,6 +47,9 @@ namespace LetsCookApp.ViewModels
 
         public void GetNewlyAddedRecipeExecute()
         {
+            try
+            {
+
             var obj = new CommonRequest();
             UserDialogs.Instance.ShowLoading("Requesting..");
             userManager.getNewlyAddedRecipe(obj, () =>
@@ -67,11 +70,18 @@ namespace LetsCookApp.ViewModels
              (requestFailedReason) =>
              {
                  Device.BeginInvokeOnMainThread(() =>
-                 {
-                     //  UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
+                 { 
                      UserDialogs.Instance.HideLoading();
+                     UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
                  });
              });
+
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert(ex.Message, null, "OK");
+            }
         }
 
         #endregion

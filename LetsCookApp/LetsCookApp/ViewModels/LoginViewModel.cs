@@ -87,8 +87,11 @@ namespace LetsCookApp.ViewModels
                         },
                            (requestFailedReason) =>
                            {
-                               UserDialogs.Instance.HideLoading();
-                               UserDialogs.Instance.Alert(requestFailedReason.Message, "Error", "OK");
+                               Device.BeginInvokeOnMainThread(() =>
+                               {
+                                   UserDialogs.Instance.HideLoading();
+                                   UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
+                               });
                            });
                     });
                 }
@@ -105,59 +108,70 @@ namespace LetsCookApp.ViewModels
         public Command ForgetCommand { get { return new Command(ForgetCommandExecution); } }
         private async void ForgetCommandExecution()
         {
-            if (string.IsNullOrEmpty(EmailId))
+            try
             {
-                UserDialogs.Instance.Alert("EmailId is Required");
-                return;
-            }
-
-            else
-            {
-                var LoginRequest = new LoginRequest
+                if (string.IsNullOrEmpty(EmailId))
                 {
-                    Email = EmailId,//"ksantosh.kundkar12@gmail.com",// UserName,
-                   
-                };
+                    UserDialogs.Instance.Alert("EmailId is Required");
+                    return;
+                }
 
-
-                await Task.Run(() =>
+                else
                 {
-                    UserDialogs.Instance.ShowLoading("Requesting..");
-                    userManager.ForgetPassword(LoginRequest, () =>
+                    var LoginRequest = new LoginRequest
                     {
-                        var LoginResponse = userManager.LoginResponse;
-                        Device.BeginInvokeOnMainThread(() =>
+                        Email = EmailId,//"ksantosh.kundkar12@gmail.com",// UserName,
+
+                    };
+
+
+                    await Task.Run(() =>
+                    {
+                        UserDialogs.Instance.ShowLoading("Requesting..");
+                        userManager.ForgetPassword(LoginRequest, () =>
                         {
-                            if (LoginResponse.StatusCode == 202)
+                            var LoginResponse = userManager.LoginResponse;
+                            Device.BeginInvokeOnMainThread(() =>
                             {
-                              
-                                EmailId = "";
-                                UserDialogs.Instance.HideLoading();
-                                UserDialogs.Instance.Alert(LoginResponse.Message, "Success", "OK");
-                                App.Current.MainPage = new NavigationPage(new SignInSignUpView());
-                            }
-                            else
-                            {
-                                UserDialogs.Instance.Alert(LoginResponse.Message, "Error", "OK");
-                            }
-                        });
-                        // RaisePropertyChanged(() => LoginResponse);
-                        UserDialogs.Instance.HideLoading();
-                    },
-                       (requestFailedReason) =>
-                       {
-                           UserDialogs.Instance.HideLoading();
-                           UserDialogs.Instance.Alert( requestFailedReason.Message, "Error", "OK");
-                       });
-                });
+                                if (LoginResponse.StatusCode == 202)
+                                {
 
-
+                                    EmailId = "";
+                                    UserDialogs.Instance.HideLoading();
+                                    UserDialogs.Instance.Alert(LoginResponse.Message, "Success", "OK");
+                                    App.Current.MainPage = new NavigationPage(new SignInSignUpView());
+                                }
+                                else
+                                {
+                                    UserDialogs.Instance.Alert(LoginResponse.Message, "Error", "OK");
+                                }
+                            });
+                            // RaisePropertyChanged(() => LoginResponse);
+                            UserDialogs.Instance.HideLoading();
+                        },
+                           (requestFailedReason) =>
+                           {
+                               Device.BeginInvokeOnMainThread(() =>
+                               {
+                                   UserDialogs.Instance.HideLoading();
+                                   UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
+                               });
+                           });
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert(ex.Message, null, "OK");
             }
         }
 
 
         public void GetAllCategory()
         {
+            try
+            {
             CommonRequest obj = new CommonRequest();
 
             userManager.getAllCategory(obj, () =>
@@ -168,10 +182,19 @@ namespace LetsCookApp.ViewModels
              {
                  Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
                  {
-                    //  UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
-                    // UserDialogs.Instance.HideLoading();
+                     UserDialogs.Instance.HideLoading();
+                     UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
+                 });
+             }); 
+            }
+            catch (Exception ex)
+            {
+                Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                {
+                    UserDialogs.Instance.HideLoading();
+                    UserDialogs.Instance.Alert(ex.Message, null, "OK");
                 });
-             });
+            }
         }
 
      

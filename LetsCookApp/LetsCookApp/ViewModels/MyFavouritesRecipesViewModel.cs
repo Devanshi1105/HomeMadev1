@@ -48,6 +48,9 @@ namespace LetsCookApp.ViewModels
 
         public void GetFavsByUserIdExecute()
         {
+            try
+            {
+
             var obj = new GetFavsByUserIdRequest()
             {
                  UserId=(App.AppSetup.HomeViewModel.UserId),
@@ -58,15 +61,7 @@ namespace LetsCookApp.ViewModels
 
                 var response = userManager.GetFavsByUserIdResponse;
                 if (response.StatusCode == 200)
-                {
-        //              public string Id { get; set; }
-        //public string MemberId { get; set; }
-        //public string Title { get; set; }
-        //public string Image { get; set; }
-        //public string Likes { get; set; }
-        //public string Rating { get; set; }
-        //public string Shares { get; set; }
-
+                { 
         UserDialogs.Instance.HideLoading();
                     FavouriteRecipes = new List<FavouriteRecipe>(response.FavouriteRecipes);
                     Device.BeginInvokeOnMainThread(async () =>
@@ -80,10 +75,17 @@ namespace LetsCookApp.ViewModels
              {
                  Device.BeginInvokeOnMainThread(() =>
                  {
-                     //  UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
                      UserDialogs.Instance.HideLoading();
+                     UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
                  });
              });
+
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert( ex.Message, null, "OK");
+            }
         }
 
         #endregion
