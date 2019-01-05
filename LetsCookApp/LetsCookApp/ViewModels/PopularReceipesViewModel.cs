@@ -52,30 +52,40 @@ namespace LetsCookApp.ViewModels
 
         public void GetPopularReceipeExecute()
         {
-            var obj = new CommonRequest();
-            UserDialogs.Instance.ShowLoading("Requesting..");
-            userManager.getPopularRecipe(obj, () =>
+            try
             {
 
-                var popularRecipeResponse = userManager.PopularRecipeResponse;
-                if (popularRecipeResponse.StatusCode == 200)
+                var obj = new CommonRequest();
+                UserDialogs.Instance.ShowLoading("Requesting..");
+                userManager.getPopularRecipe(obj, () =>
                 {
-                    UserDialogs.Instance.HideLoading();
-                    PopularRecipes = new List<PopularRecipe>(popularRecipeResponse.PopularRecipes);
-                    Device.BeginInvokeOnMainThread(async() =>
+
+                    var popularRecipeResponse = userManager.PopularRecipeResponse;
+                    if (popularRecipeResponse.StatusCode == 200)
                     {
-                       await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new PopularReceipesView());
-                    }); 
-                }
-            },
-             (requestFailedReason) =>
-             {
-                 Device.BeginInvokeOnMainThread(() =>
+                        UserDialogs.Instance.HideLoading();
+                        PopularRecipes = new List<PopularRecipe>(popularRecipeResponse.PopularRecipes);
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new PopularReceipesView());
+                        });
+                    }
+                },
+                 (requestFailedReason) =>
                  {
-                     //  UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
-                     UserDialogs.Instance.HideLoading();
+                     Device.BeginInvokeOnMainThread(() =>
+                     {
+                         UserDialogs.Instance.HideLoading();
+                         UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
+                     
+                     });
                  });
-             });
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert(ex.Message, null, "OK");
+            }
         }
 
         

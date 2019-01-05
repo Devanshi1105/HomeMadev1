@@ -655,20 +655,22 @@ namespace LetsCookApp.ViewModels
 
         public CountryResponse GetCountry()
         {
-            CommonRequest obj = new CommonRequest();
-
-            UserDialogs.Instance.ShowLoading("Requesting..");
-            userManager.getCountry(obj,  () =>
+            try
             {
-                 CountryResponse = userManager.CountryResponse;
-                //LstCountry = new ObservableCollection<Models.Country>();
-                //foreach (var item in userCountryResponse.country)
-                //{
-                //    LstCountry.Add(item);
-                //}
+                CommonRequest obj = new CommonRequest();
 
+                UserDialogs.Instance.ShowLoading("Requesting..");
+                userManager.getCountry(obj, () =>
+               {
+                   UserDialogs.Instance.HideLoading();
+                   CountryResponse = userManager.CountryResponse;
+
+               });
+            }
+            catch (Exception ex)
+            {
                 UserDialogs.Instance.HideLoading();
-            });
+            }
 
             return CountryResponse;
         }

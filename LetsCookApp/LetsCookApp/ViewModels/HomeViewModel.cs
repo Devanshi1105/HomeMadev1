@@ -334,85 +334,96 @@ namespace LetsCookApp.ViewModels
         public void GetProfile()
         {
 
-            GetProfileRequest obj = new GetProfileRequest();
-            obj.EmailId = Email;
-            obj.UserId = UserId;
-            UserDialogs.Instance.ShowLoading("Requesting..");
-            userManager.getProfile(obj,() =>
+            try
             {
-                var userProfileResponse = userManager.ProfileResponse;
 
-                if (userProfileResponse.StatusCode == 202)
-                {
-                    var udata = userProfileResponse.UserData;
-                    Address1 = udata.Address1;
-                    Address2 = udata.Address2;
-                    Address3 = udata.Address3;
-                    State = udata.State;
-                    City = udata.City;
-                    Country = udata.Country;
-                    Email = udata.EmailId;
-                    FirstName = udata.FirstName;
-                    Hobbies = udata.Hobbies;
-                    LastName = udata.LastName;
-                    UserName = udata.UserName;
-                    MobileNumber = udata.MobileNumber;
-                    Password = udata.Password;
-                    PhoneNumber = udata.PhoneNumber;
-                    Postcode = udata.Postcode;
-                    Picture = udata.PhotoURL;
-                    DateOfBirth = udata.DateOfBirth;
-                    Gender = udata.Gender;
-                    AboutMe = udata.AboutMe;
-                    if (!string.IsNullOrEmpty(udata.PhotoURL))
-                    {
-                        PictureSource = new UriImageSource
-                        {
-                            Uri = new Uri(udata.PhotoURL),
-                            CachingEnabled = true,
-                        };
+                GetProfileRequest obj = new GetProfileRequest();
+                obj.EmailId = Email;
+                obj.UserId = UserId;
+                UserDialogs.Instance.ShowLoading("Requesting..");
+                userManager.getProfile(obj, () =>
+                 {
+                     var userProfileResponse = userManager.ProfileResponse;
+
+                     if (userProfileResponse.StatusCode == 202)
+                     {
+                         var udata = userProfileResponse.UserData;
+                         Address1 = udata.Address1;
+                         Address2 = udata.Address2;
+                         Address3 = udata.Address3;
+                         State = udata.State;
+                         City = udata.City;
+                         Country = udata.Country;
+                         Email = udata.EmailId;
+                         FirstName = udata.FirstName;
+                         Hobbies = udata.Hobbies;
+                         LastName = udata.LastName;
+                         UserName = udata.UserName;
+                         MobileNumber = udata.MobileNumber;
+                         Password = udata.Password;
+                         PhoneNumber = udata.PhoneNumber;
+                         Postcode = udata.Postcode;
+                         Picture = udata.PhotoURL;
+                         DateOfBirth = udata.DateOfBirth;
+                         Gender = udata.Gender;
+                         AboutMe = udata.AboutMe;
+                         if (!string.IsNullOrEmpty(udata.PhotoURL))
+                         {
+                             PictureSource = new UriImageSource
+                             {
+                                 Uri = new Uri(udata.PhotoURL),
+                                 CachingEnabled = true,
+                             };
                         ////  ImageBase64 = await GetImageAsBase64Url(udata.PhotoURL);
                     }
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        UserDialogs.Instance.HideLoading();
-                        await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new MyProfileView());
-                    });
-                   
-                  
+                         Device.BeginInvokeOnMainThread(async () =>
+                         {
+                             UserDialogs.Instance.HideLoading();
+                             await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new MyProfileView());
+                         });
 
-                }
-            },
-             (requestFailedReason) =>
-             {
-                 Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+
+
+                     }
+                 },
+                 (requestFailedReason) =>
                  {
-                     //  UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
-                     UserDialogs.Instance.HideLoading();
+                     Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                     {
+                         UserDialogs.Instance.HideLoading();
+                         UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK"); 
+                     });
                  });
-             });
+
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert(ex.Message, null, "OK");
+            }
         }
 
 
         
         public void GetFriendExecute()
         {
-
-            FriendRequest obj = new FriendRequest()
+            try
             {
-                UserId = Convert.ToInt32(UserId)
-            };
-            
-            UserDialogs.Instance.ShowLoading("Requesting..");
-            userManager.getFriends(obj, () =>
-            {
-                var friendResponse = userManager.FriendResponse;
-
-                if (friendResponse.StatusCode == 200)
+                FriendRequest obj = new FriendRequest()
                 {
-                    UserDialogs.Instance.HideLoading();
-                    var udata = friendResponse.FriendsData;
-                    FriendsDataList = new ObservableCollection<FriendsData>(udata);
+                    UserId = Convert.ToInt32(UserId)
+                };
+
+                UserDialogs.Instance.ShowLoading("Requesting..");
+                userManager.getFriends(obj, () =>
+                {
+                    var friendResponse = userManager.FriendResponse;
+
+                    if (friendResponse.StatusCode == 200)
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        var udata = friendResponse.FriendsData;
+                        FriendsDataList = new ObservableCollection<FriendsData>(udata);
 
                     //Device.BeginInvokeOnMainThread(async () =>
                     //{
@@ -420,15 +431,23 @@ namespace LetsCookApp.ViewModels
                     //    await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new MyProfileView());
                     //}); 
                 }
-            },
-             (requestFailedReason) =>
-             {
-                 Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                },
+                 (requestFailedReason) =>
                  {
-                     //  UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
-                     UserDialogs.Instance.HideLoading();
+                     Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                     {
+                         UserDialogs.Instance.HideLoading();
+                         UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
+                      
+                     });
                  });
-             });
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert(ex.Message, null, "OK");
+            }
+
         }
 
         public async static Task<string> GetImageAsBase64Url(string url)

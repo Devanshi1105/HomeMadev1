@@ -42,55 +42,62 @@ namespace LetsCookApp.ViewModels
         public Command LoginCommand { get { return new Command(LoginCommandExecution); } }
         private async void LoginCommandExecution()
         {
-            if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password))
+            try
             {
-                UserDialogs.Instance.Alert("Username/EmailId and Password is Required");
-                return;
-            }
-            
-            else
-            {
-                var LoginRequest = new LoginRequest
+                if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password))
                 {
-                    Email = UserName,//"ksantosh.kundkar12@gmail.com",//UserName, 
-                    Password = Password// "123456",// Password
-                };
+                    UserDialogs.Instance.Alert("Username/EmailId and Password is Required");
+                    return;
+                }
 
-               
-                await Task.Run(() =>
+                else
                 {
-                    UserDialogs.Instance.ShowLoading("Requesting..");
-                    userManager.Login(LoginRequest, () =>
+                    var LoginRequest = new LoginRequest
                     {
-                        var LoginResponse = userManager.LoginResponse;
+                        Email = UserName,//"ksantosh.kundkar12@gmail.com",//UserName, 
+                        Password = Password// "123456",// Password
+                    };
 
-                        if (LoginResponse.StatusCode == 202)
+
+                    await Task.Run(() =>
+                    {
+                        UserDialogs.Instance.ShowLoading("Requesting..");
+                        userManager.Login(LoginRequest, () =>
                         {
-                            App.AppSetup.HomeViewModel.UserData = LoginResponse.UserData;
-                            App.AppSetup.SignUpViewModel.Email = App.AppSetup.HomeViewModel.Email = LoginResponse.UserData.EmailId;
-                            App.AppSetup.SignUpViewModel.UserId = App.AppSetup.HomeViewModel.UserId = LoginResponse.UserData.UserId;
-                            App.AppSetup.HomeViewModel.PictureSource = new UriImageSource
+                            var LoginResponse = userManager.LoginResponse;
+
+                            if (LoginResponse.StatusCode == 202)
                             {
-                                Uri = new Uri(LoginResponse.UserData.PhotoURL),
-                                CachingEnabled = true,
-                            };
-                            UserName = Password = ""; 
-                            App.AppSetup.CategoryViewModel.GetCotegaryCommand.Execute(null);
-                        }
-                        else
-                        {
-                            UserDialogs.Instance.HideLoading();
-                            UserDialogs.Instance.Alert(LoginResponse.Message, "Error", "OK");
-                        } 
-                    },
-                       (requestFailedReason) =>
-                       {
-                           UserDialogs.Instance.HideLoading();
-                           UserDialogs.Instance.Alert( requestFailedReason.Message, "Error", "OK");
-                       });
-                });
+                                App.AppSetup.HomeViewModel.UserData = LoginResponse.UserData;
+                                App.AppSetup.SignUpViewModel.Email = App.AppSetup.HomeViewModel.Email = LoginResponse.UserData.EmailId;
+                                App.AppSetup.SignUpViewModel.UserId = App.AppSetup.HomeViewModel.UserId = LoginResponse.UserData.UserId;
+                                App.AppSetup.HomeViewModel.PictureSource = new UriImageSource
+                                {
+                                    Uri = new Uri(LoginResponse.UserData.PhotoURL),
+                                    CachingEnabled = true,
+                                };
+                                UserName = Password = "";
+                                App.AppSetup.CategoryViewModel.GetCotegaryCommand.Execute(null);
+                            }
+                            else
+                            {
+                                UserDialogs.Instance.HideLoading();
+                                UserDialogs.Instance.Alert(LoginResponse.Message, "Error", "OK");
+                            }
+                        },
+                           (requestFailedReason) =>
+                           {
+                               UserDialogs.Instance.HideLoading();
+                               UserDialogs.Instance.Alert(requestFailedReason.Message, "Error", "OK");
+                           });
+                    });
+                }
 
-
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert(ex.Message, "Error", "OK");
             }
         }
 

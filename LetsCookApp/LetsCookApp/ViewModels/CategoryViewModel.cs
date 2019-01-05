@@ -337,7 +337,7 @@ namespace LetsCookApp.ViewModels
                 {
 
                     RecipeId = Convert.ToString(RecipeId),
-                    Email = "santoshkundkar12@gmail.com",//ShareEmail,
+                    Email = ShareEmail,//"santoshkundkar12@gmail.com",//ShareEmail,
                     FirstName = FirstName,
                     LastName = LastName
                 };

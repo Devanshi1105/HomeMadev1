@@ -104,8 +104,8 @@ namespace LetsCookApp.Views
             //    item.imgsource = "checkmarkon";
             //}
 
-            vm.RecipeId = Convert.ToInt32(recipe.Id);
-            vm.SaveShoppingCommand.Execute(null);
+            //vm.RecipeId = Convert.ToInt32(recipe.Id);
+            //vm.SaveShoppingCommand.Execute(null);
         }
 
         private void CustomButtonRegular_Clicked(object sender, EventArgs e)
