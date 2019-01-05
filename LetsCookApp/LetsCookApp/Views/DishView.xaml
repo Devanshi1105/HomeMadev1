@@ -2,8 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:LetsCookApp.CustomViews;assembly=LetsCookApp"
+             xmlns:converter="clr-namespace:LetsCookApp.Converters"
              x:Class="LetsCookApp.Views.DishView" >
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:VisibleConverter x:Key="inverseBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid  BackgroundColor="Black" RowSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <Grid.ColumnDefinitions>
@@ -72,13 +78,21 @@
                         <Label  Text="INGREDIENTS" TextColor="#e74c3c" FontSize="16"  Margin="10,0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand"/>
                     </ContentView>
 
-                    <ListView  Grid.Row="2" x:Name="lst1" HasUnevenRows="True" ItemsSource="{Binding Ingredients}" ItemTapped="lst1_ItemTapped" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+                    <ListView  Grid.Row="2" x:Name="lst1" HasUnevenRows="True" ItemsSource="{Binding Ingredients}" ItemTapped="lst1_ItemTapped" ItemSelected="lst1_ItemSelected" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <ViewCell.View>
                                         <StackLayout Margin="10,0" Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center" HeightRequest="50" >
-                                            <Image Source="checkmarkon" HeightRequest="25" WidthRequest="25" VerticalOptions="Center" HorizontalOptions="Start"/>
+
+
+                                            <StackLayout  VerticalOptions="Center" HorizontalOptions="Center" >
+                                                <Image Source="checkmarkon" HeightRequest="25" WidthRequest="25"  x:Name="imgCheck" IsVisible="{Binding IsItemSelected}"   Aspect="AspectFit"  VerticalOptions="Center" HorizontalOptions="Center"/> 
+                                                <Image Source="checkmark" HeightRequest="25" WidthRequest="25"  IsVisible ="{Binding IsItemSelected, Converter={StaticResource inverseBool}}" Aspect="AspectFit"    VerticalOptions="Center" HorizontalOptions="Center"/>
+                                            </StackLayout> 
+                                            
+                                            <!--<Image Source="checkmarkon" HeightRequest="25" WidthRequest="25" VerticalOptions="Center" HorizontalOptions="Start"/>-->
+                                            
                                             <local:CustomLabelRegular Text="{Binding Name}" TextColor="Black" Font="16" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                                              
                                         </StackLayout>

@@ -58,28 +58,7 @@ namespace LetsCookApp.Views
             });
 
 
-        }
-
-
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-        }
-        private void lst2_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            var item = e.Item as Contacts;
-            if (item.imgsource == "nact")
-            {
-                item.imgsource = "act";
-            }
-            else
-            {
-                item.imgsource = "nact";
-            }
-        }
-
+        } 
         private void Menu_Tapped(object sender, EventArgs e)
         {
             Navigation.PopAsync();
@@ -90,23 +69,7 @@ namespace LetsCookApp.Views
 
             Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
         }
-        private void lst1_ItemTapped(object sender, ItemTappedEventArgs e)
-        { 
-            var vm = App.AppSetup.CategoryViewModel;
-            var recipe = ((Image)sender).BindingContext as Ingredient;
-
-            //if (item.imgsource == "checkmarkon")
-            //{
-            //    item.imgsource = "checkmark";
-            //}
-            //else
-            //{
-            //    item.imgsource = "checkmarkon";
-            //}
-
-            //vm.RecipeId = Convert.ToInt32(recipe.Id);
-            //vm.SaveShoppingCommand.Execute(null);
-        }
+        private void lst1_ItemTapped(object sender, ItemTappedEventArgs e) => ((ListView)sender).SelectedItem = null;
 
         private void CustomButtonRegular_Clicked(object sender, EventArgs e)
         {
@@ -114,7 +77,24 @@ namespace LetsCookApp.Views
             Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
         }
 
-       
+        private void lst1_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = e.SelectedItem as Ingredient;
+            if (item == null) return;
+
+            var vm = App.AppSetup.CategoryViewModel;
+            //var recipe = ((Image)sender).BindingContext; 
+            
+            if (item.IsItemSelected)
+            {
+                vm.IngredientIds.Remove(Convert.ToInt32(item.Id));
+            }
+            else
+            {
+                vm.IngredientIds.Add(Convert.ToInt32(item.Id));
+            } 
+            item.IsItemSelected = !item.IsItemSelected; 
+        }
     }
 
     public class Contacts

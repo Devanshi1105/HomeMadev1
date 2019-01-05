@@ -110,6 +110,13 @@ namespace LetsCookApp.ViewModels
             set { ingredients = value; RaisePropertyChanged(() => Ingredients); }
         }
 
+        private List<int> ingredientIds=new List<int> ();
+        public List<int> IngredientIds
+        {
+            get { return ingredientIds; }
+            set { ingredientIds = value; RaisePropertyChanged(() => IngredientIds); }
+        }
+
         private int catId;
 
         public int CatId
@@ -146,35 +153,49 @@ namespace LetsCookApp.ViewModels
 
         public void GetCotegaryExecute()
         {
-            var obj = new CommonRequest();
-            UserDialogs.Instance.ShowLoading("Requesting..");
-            userManager.getAllCategory(obj, () =>
+            try
             {
-
-                var categoryResponse = userManager.CategoryResponse;
-                if (categoryResponse.StatusCode == 200)
+                var obj = new CommonRequest();
+                UserDialogs.Instance.ShowLoading("Requesting..");
+                userManager.getAllCategory(obj, () =>
                 {
-                    UserDialogs.Instance.HideLoading();
-                    Categories = new List<Category>(categoryResponse.Categories);
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        App.Current.MainPage = new Views.HomeView();
-                    });
 
-                }
-            },
-             (requestFailedReason) =>
-             {
-                 Device.BeginInvokeOnMainThread(() =>
+                    var categoryResponse = userManager.CategoryResponse;
+                    if (categoryResponse.StatusCode == 200)
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        Categories = new List<Category>(categoryResponse.Categories);
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            App.Current.MainPage = new Views.HomeView();
+                        });
+
+                    }
+                },
+                 (requestFailedReason) =>
                  {
-                     //  UserDialogs.Instance.Alert(requestFailedReason.Message, null, "OK");
-                     UserDialogs.Instance.HideLoading();
+                     Device.BeginInvokeOnMainThread(() =>
+                     {
+
+                         UserDialogs.Instance.HideLoading();
+                         UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
+                     });
                  });
-             });
+
+
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert(ex.Message , null, "OK");
+            }
         }
 
         public void GetSubCotegaryExecute()
         {
+            try
+            {
+
             var obj = new SubCategoryRequest()
             {
                 CatId = CatId
@@ -203,6 +224,13 @@ namespace LetsCookApp.ViewModels
 
                  });
              });
+
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert(ex.Message , null, "OK");
+            }
         }
 
         public void GetDishViewExecute()
@@ -222,7 +250,7 @@ namespace LetsCookApp.ViewModels
                         UserDialogs.Instance.HideLoading();
                         dishViewResponse = new DishViewResponse() { Recipe = dishViewResponse.Recipe };
                         RecipeDishView = dishViewResponse.Recipe;
-                        Ingredients = RecipeDishView.Ingredients;
+                        Ingredients = RecipeDishView.Ingredients;//.FindAll(p=>p.IsItemSelected=false);
                         Device.BeginInvokeOnMainThread(async () =>
                         {
                             //await  App.Current.MainPage.Navigation.PushAsync(new DishView());
@@ -295,7 +323,7 @@ namespace LetsCookApp.ViewModels
                 var obj = new SaveShoppingRequest()
                 {
                     Recipe_Id = RecipeId,
-                    Ingredient_Id = 5,
+                    Ingredient_Id = 5,//IngredientIds
                     Member_Id = Convert.ToInt32(App.AppSetup.HomeViewModel.UserId)
                 };
                 UserDialogs.Instance.ShowLoading("Requesting..");

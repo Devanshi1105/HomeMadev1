@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LetsCookApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,14 +8,21 @@ using System.Threading.Tasks;
 namespace LetsCookApp.Models
 {
    
-    public class Ingredient
+    public class Ingredient : BaseViewModel
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Quantity { get; set; }
         public string Unit { get; set; }
         public string Ingredientfor { get; set; }
-      
+
+        private bool _isItemSelected =false;
+        public bool IsItemSelected
+        {
+            get { return _isItemSelected; }
+            set { _isItemSelected = value; RaisePropertyChanged(() => IsItemSelected); }
+        }
+
 
         private string image= "checkmarkon";
 
