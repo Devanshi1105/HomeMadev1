@@ -83,8 +83,7 @@ namespace LetsCookApp.Views
             if (item == null) return;
 
             var vm = App.AppSetup.CategoryViewModel;
-            //var recipe = ((Image)sender).BindingContext; 
-            
+             
             if (item.IsItemSelected)
             {
                 vm.IngredientIds.Remove(Convert.ToInt32(item.Id));

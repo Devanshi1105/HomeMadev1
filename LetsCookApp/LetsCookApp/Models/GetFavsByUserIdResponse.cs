@@ -17,18 +17,22 @@ namespace LetsCookApp.Models
     public class FavouriteRecipe
     {
         public string Id { get; set; }
-        public string MemberId { get; set; }
         public string Title { get; set; }
+        public string MemberId { get; set; }
+        public string Serving { get; set; }
+        public string CookingTime { get; set; }
+        public string PrepTime { get; set; }
+        public string RestingTime { get; set; }
+        public string TotalTime { get; set; }
+        public string Calories { get; set; }
+        public string IngredientCount { get; set; }
         public string Image { get; set; }
-        public string Likes { get; set; }
-        public string Rating { get; set; }
-        public string Shares { get; set; }
 
     }
 
 
     public class GetFavsByUserIdResponse:BaseResponseModel
-    { 
+    {
         public List<FavouriteRecipe> FavouriteRecipes { get; set; }
     }
 }

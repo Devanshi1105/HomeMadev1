@@ -321,7 +321,7 @@ namespace LetsCookApp.ViewModels
                 var obj = new SaveShoppingRequest()
                 {
                     Recipe_Id = RecipeId,
-                    Ingredient_Id = 5,//IngredientIds
+                    Ingredient_Id = IngredientIds,
                     Member_Id = Convert.ToInt32(App.AppSetup.HomeViewModel.UserId)
                 };
                 UserDialogs.Instance.ShowLoading("Requesting..");

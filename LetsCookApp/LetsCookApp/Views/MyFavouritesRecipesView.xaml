@@ -52,22 +52,22 @@
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <local:CustomLabelLight Grid.Column="0" Grid.Row="0" Text="{Binding Title}" FontAttributes="Bold" TextColor="#e74c3c" FontSize="14" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0"/>
+                                    <local:CustomLabelLight Grid.Column="0" Grid.Row="0" Text="{Binding Title}" FontAttributes="Bold" TextColor="#e74c3c" FontSize="14" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0" LineBreakMode="TailTruncation"/>
 
                                     <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Margin="10,0,0,5">
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Image Aspect="AspectFit" Source="time" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="15" WidthRequest="15"/>
-                                            <local:CustomLabelLight Text="{Binding Likes}" TextColor="#ffffff" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <local:CustomLabelLight Text="{Binding TotalTime}" TextColor="#ffffff" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
                                         </StackLayout>
                                         
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Image Aspect="AspectFit" Source="serving" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="15" WidthRequest="15"/>
-                                            <local:CustomLabelLight Text="{Binding Rating}" TextColor="#ffffff" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <local:CustomLabelLight Text="{Binding Serving}" TextColor="#ffffff" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
                                         </StackLayout>
                                         
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Image Aspect="AspectFit" Source="ingredients" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="15" WidthRequest="15"/>
-                                            <local:CustomLabelLight Text="{Binding Shares}" TextColor="#ffffff" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <local:CustomLabelLight Text="{Binding IngredientCount}" TextColor="#ffffff" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
                                         </StackLayout>
                                         
                                     </StackLayout>
