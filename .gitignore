@@ -13,3 +13,7 @@
 /.vs/LetsCookApp/v15
 /LetsCookApp/LetsCookApp.Droid/obj
 /.vs
+/LetsCookApp/LetsCookApp.Droid/bin/Release
+/LetsCookApp/LetsCookApp.iOS/obj/iPhone/Release
+/LetsCookApp/LetsCookApp/bin/Release
+/LetsCookApp/LetsCookApp/obj/Release
