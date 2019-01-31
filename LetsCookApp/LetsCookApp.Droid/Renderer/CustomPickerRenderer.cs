@@ -44,7 +44,7 @@ namespace LetsCookApp.Droid.Renderer
             var drawable = ContextCompat.GetDrawable(this.Context, resID);
             var bitmap = ((BitmapDrawable)drawable).Bitmap;
 
-            var result = new BitmapDrawable(Resources, Bitmap.CreateScaledBitmap(bitmap, 30, 30, true));
+            var result = new BitmapDrawable(Resources, bitmap);
             result.Gravity = Android.Views.GravityFlags.Right;
 
             return result;

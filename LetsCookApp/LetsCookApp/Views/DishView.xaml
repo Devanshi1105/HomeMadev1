@@ -22,19 +22,20 @@
         </Grid.RowDefinitions>
 
         <StackLayout  Grid.Column="0"  Grid.Row="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Black" Margin="10,0">
-            <ContentView HorizontalOptions="Start" HeightRequest="40" VerticalOptions="Start"  Margin="0,10">
+           
+            <ContentView HorizontalOptions="Start" VerticalOptions="Start"  Margin="0,10">
                 <Image Source="backarrow"  HorizontalOptions="Center" VerticalOptions="Center"/>
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Tapped="Menu_Tapped"/>
                 </ContentView.GestureRecognizers>
             </ContentView>
 
-            <local:CustomLabelLight Text="{Binding RecipeDishView.Title}" TextColor="#e74c3c" FontSize="20" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"  />
+            <local:CustomLabelLight Text="{Binding RecipeDishView.Title}" TextColor="#e74c3c" FontSize="20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  />
 
             <ContentView HorizontalOptions="End" VerticalOptions="Start" Margin="0,10">
-                <Image Source="search" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Image Source="search" IsVisible="False" HorizontalOptions="Center" VerticalOptions="Center"/>
                 <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Search_Tapped"/>
+                    <!--<TapGestureRecognizer Tapped="Search_Tapped"/>-->
                 </ContentView.GestureRecognizers>
             </ContentView>
         </StackLayout>

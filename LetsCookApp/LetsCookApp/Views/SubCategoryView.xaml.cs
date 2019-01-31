@@ -21,9 +21,8 @@ namespace LetsCookApp.Views
         }
         private void Search_Tapped(object sender, EventArgs e)
         {
-            var page = new SearchView();
-
-            Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
+            App.AppSetup.CategoryViewModel.IsVisbleSearchBar = true;
+            srchbar.Focus(); 
         }
         private void Menu_Tapped(object sender, EventArgs e)
         {
@@ -46,6 +45,24 @@ namespace LetsCookApp.Views
             var recipe = ((Image)sender).BindingContext as Recipe;
             vm.RecipeId = Convert.ToInt32(recipe.Id);
             vm.SavefavRecipeCommand.Execute(null);
+        }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var vm = App.AppSetup.CategoryViewModel;
+            if (string.IsNullOrEmpty(e.NewTextValue))
+            {
+                listSubCatgory.ItemsSource = vm.Recipes;
+            }
+            else
+            {
+                listSubCatgory.ItemsSource = vm.Recipes.Where(x => x.Title.ToLower().Contains(e.NewTextValue.ToLower()));
+            }
+        }
+
+        private void srchbar_Unfocused(object sender, FocusEventArgs e)
+        {
+            App.AppSetup.CategoryViewModel.IsVisbleSearchBar = false;
         }
     }
 

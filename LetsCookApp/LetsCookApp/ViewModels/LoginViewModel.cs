@@ -14,12 +14,14 @@ namespace LetsCookApp.ViewModels
 {
     public class LoginViewModel :BaseViewModel
     {
-
-        public LoginViewModel()
+       
+        public LoginViewModel( )
         {
-                   
-           
+
         }
+     //   public string AdUnitId { get; set; } = "ca-app-pub-3940256099942544/6300978111";
+        public string AdUnitId { get; set; } = "ca-app-pub-5013023089301852/7364805776";
+
         private static readonly HttpClient _Client = new HttpClient();
         async Task<HttpResponseMessage> Request(HttpMethod pMethod, string pUrl, string pJsonContent)
         {
@@ -89,8 +91,8 @@ namespace LetsCookApp.ViewModels
                            {
                                Device.BeginInvokeOnMainThread(() =>
                                {
-                                   UserDialogs.Instance.HideLoading();
-                                   UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
+                                    UserDialogs.Instance.HideLoading();
+                                    UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
                                });
                            });
                     });
@@ -99,8 +101,8 @@ namespace LetsCookApp.ViewModels
             }
             catch (Exception ex)
             {
-                UserDialogs.Instance.HideLoading();
-                UserDialogs.Instance.Alert(ex.Message, "Error", "OK");
+               UserDialogs.Instance.HideLoading();
+               UserDialogs.Instance.Alert(ex.Message, "Error", "OK");
             }
         }
 

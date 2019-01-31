@@ -27,6 +27,7 @@ namespace LetsCookApp.iOS
             global::Xamarin.Forms.Forms.Init();
             ImageCircleRenderer.Init(); 
             CachedImageRenderer.Init();
+            Google.MobileAds.MobileAds.Configure("YOUR IOS APP ID HERE");
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

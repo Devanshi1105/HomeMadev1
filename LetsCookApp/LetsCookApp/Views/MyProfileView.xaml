@@ -110,17 +110,16 @@
                             <RowDefinition Height="60"/>
                             <RowDefinition Height="*"/>
 
-                        </Grid.RowDefinitions>
-
-
+                        </Grid.RowDefinitions>  
                         <Image  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Source="man.png" Aspect="AspectFit" HeightRequest="60" WidthRequest="60" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Margin="10,0,0,0"/>
 
-                        <StackLayout Orientation="Vertical" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"  HeightRequest="50" HorizontalOptions="StartAndExpand"  Spacing="0" VerticalOptions="CenterAndExpand"  Margin="10,0" >
-                            <local:CustomLabelRegular Text="Santosh Kundkar" TextColor="Black" FontSize="15" FontAttributes ="Bold"  HorizontalOptions="Center" VerticalOptions="Center">
-                            </local:CustomLabelRegular>
-                            <local:CustomLabelRegular Text="10 Oct 2018" TextColor="Black" FontSize="12"    HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontAttributes="Italic">
-                            </local:CustomLabelRegular>
-                        </StackLayout>
+                        <StackLayout Orientation="Vertical" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"  HeightRequest="40" HorizontalOptions="StartAndExpand"  Spacing="0" VerticalOptions="CenterAndExpand"  Margin="10,0" >
+                                
+                            <local:CustomLabelRegular Text="Santosh Kundkar" TextColor="Black" FontSize="15" FontAttributes ="Bold"  HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                                <local:CustomLabelRegular Text="10 Oct 2018" TextColor="Black" FontSize="12"    HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontAttributes="Italic"/>
+
+                            </StackLayout>
 
                         <Image  Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Source="Dosa.png" Aspect="AspectFill"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
 

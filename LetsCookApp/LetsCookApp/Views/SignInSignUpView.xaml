@@ -2,12 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               xmlns:local="clr-namespace:LetsCookApp.CustomViews;assembly=LetsCookApp"
+             xmlns:local1="clr-namespace:LetsCookApp.CustomViews"
              x:Class="LetsCookApp.Views.SignInSignUpView" BackgroundImage="newback.jpg">
 
-    <Grid  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="10,35,10,35" RowSpacing="10">
+    <Grid  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="10,35,10,0" RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="110"/>
             <RowDefinition Height="130"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
@@ -32,5 +34,6 @@
             <TapGestureRecognizer Tapped="ForgotPassword_Tapped" />
           </ContentView.GestureRecognizers>
         </ContentView>
+        <local1:AdvertisementView  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" AdUnitId="{Binding AdUnitId}" />
     </Grid>
 </ContentPage>

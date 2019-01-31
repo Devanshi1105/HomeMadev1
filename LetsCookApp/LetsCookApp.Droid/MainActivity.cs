@@ -10,6 +10,7 @@ using ImageCircle.Forms.Plugin.Droid;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
 using FFImageLoading.Forms.Droid;
+using Android.Gms.Ads;
 
 namespace LetsCookApp.Droid
 {
@@ -18,15 +19,17 @@ namespace LetsCookApp.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
-            TabLayoutResource = Resource.Layout.Tabbar;
-            ToolbarResource = Resource.Layout.Toolbar;
+            //TabLayoutResource = Resource.Layout.Tabbar;
+            //ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
-            global::Acr.UserDialogs.UserDialogs.Init(this);
+           
             //CrossCurrentActivity.Current.Activity.ini(this, bundle);
             ImageCircleRenderer.Init();
             CachedImageRenderer.Init();
+            MobileAds.Initialize(ApplicationContext, "ca-app-pub-5013023089301852/7364805776");
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            global::Acr.UserDialogs.UserDialogs.Init(this);
             LoadApplication(new App());
         }
         public static MainActivity Current { private set; get; }

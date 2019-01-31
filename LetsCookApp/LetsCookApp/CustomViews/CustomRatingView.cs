@@ -206,26 +206,26 @@ namespace LetsCookApp.CustomViews
             }
             else if (ratevalue == 2)
             {
-                staron2.IsVisible = true;
-                staron5.IsVisible = staron4.IsVisible = staron3.IsVisible = staron1.IsVisible = false;
+                staron1.IsVisible= staron2.IsVisible = true;
+                staron5.IsVisible = staron4.IsVisible = staron3.IsVisible =  false;
                 starhalfoff2.IsVisible = starhalfoff3.IsVisible = starhalfoff4.IsVisible = starhalfoff1.IsVisible = starhalfoff5.IsVisible = false;
             }
             else if (ratevalue == 3)
             {
-                staron3.IsVisible = true;
-                staron5.IsVisible = staron4.IsVisible = staron1.IsVisible = staron2.IsVisible = false;
+                staron5.IsVisible = staron4.IsVisible  = false;
+               staron3.IsVisible = staron1.IsVisible = staron2.IsVisible = true;
                 starhalfoff2.IsVisible = starhalfoff3.IsVisible = starhalfoff4.IsVisible = starhalfoff1.IsVisible = starhalfoff5.IsVisible = false;
             }
             else if (ratevalue == 4)
             {
-                staron4.IsVisible = true;
-                staron5.IsVisible = staron1.IsVisible = staron3.IsVisible = staron2.IsVisible = false;
+                staron5.IsVisible = false;
+                staron4.IsVisible = staron1.IsVisible = staron3.IsVisible = staron2.IsVisible = true;
                 starhalfoff2.IsVisible = starhalfoff3.IsVisible = starhalfoff4.IsVisible = starhalfoff1.IsVisible = starhalfoff5.IsVisible = false;
             }
             else if (ratevalue == 5)
             {
                 staron5.IsVisible = true;
-                staron1.IsVisible = staron4.IsVisible = staron3.IsVisible = staron2.IsVisible = false;
+                staron1.IsVisible = staron4.IsVisible = staron3.IsVisible = staron2.IsVisible = true;
                 starhalfoff2.IsVisible = starhalfoff3.IsVisible = starhalfoff4.IsVisible = starhalfoff1.IsVisible = starhalfoff5.IsVisible = false;
             }
 

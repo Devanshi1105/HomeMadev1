@@ -8,8 +8,8 @@ namespace LetsCookApp.Models
 {
     public class SaveShoppingRequest
     {
-        public int Recipe_Id { get; set; }
-        public List<int> Ingredient_Id { get; set; }
-        public int Member_Id { get; set; }
+        public int RecipeId { get; set; }
+        public List<int> IngredientIds { get; set; }
+        public int MemberId { get; set; }
     }
 }

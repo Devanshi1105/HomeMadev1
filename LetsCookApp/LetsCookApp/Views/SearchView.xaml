@@ -15,14 +15,14 @@
       </ContentView>
       <local:CustomLabelLight Text="Search" TextColor="#e74c3c" FontSize="20" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"  />
       <ContentView HorizontalOptions="Start" VerticalOptions="Center" Padding="10,10">
-        <Image Source="close" HorizontalOptions="Center" HeightRequest="25" WidthRequest="25" VerticalOptions="Center"/>
+        <Image Source="close" HorizontalOptions="Center" HeightRequest="20" WidthRequest="20" VerticalOptions="Center"/>
         <ContentView.GestureRecognizers>
           <TapGestureRecognizer Tapped="OnClose"/>
         </ContentView.GestureRecognizers>
       </ContentView>
     </StackLayout>
        
-      <SearchBar Placeholder="What would you like to cook?" TextColor="Black" PlaceholderColor="#9A9A9A" BackgroundColor="#e8e7e6" HorizontalOptions="FillAndExpand" VerticalOptions="Start"/>
+      <SearchBar Placeholder="Type to search" TextColor="Black" PlaceholderColor="#9A9A9A" BackgroundColor="#e8e7e6" HorizontalOptions="FillAndExpand" VerticalOptions="Start" />
 
   </StackLayout>
 

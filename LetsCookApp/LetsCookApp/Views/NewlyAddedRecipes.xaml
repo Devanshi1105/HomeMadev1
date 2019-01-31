@@ -24,8 +24,11 @@
             </ContentView>
         </StackLayout>
 
+        <SearchBar x:Name="srchbar" IsVisible="{Binding IsVisbleSearchBar}" Placeholder="Type to search" Text="{Binding SearchBarText}" TextColor="Black" PlaceholderColor="#9A9A9A" BackgroundColor="#e8e7e6" HorizontalOptions="FillAndExpand" VerticalOptions="Start" TextChanged="SearchBar_TextChanged" Unfocused="srchbar_Unfocused"/>
 
-        <local:CustomListView x:Name="listSubCatgory" ItemsSource="{Binding NewlyAddedRecipes}" HasUnevenRows="True"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorVisibility="None" >
+        <local:CustomListView x:Name="listSubCatgory" ItemsSource="{Binding NewlyAddedRecipes}" HasUnevenRows="True"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorVisibility="None"  IsPullToRefreshEnabled="True"
+           RefreshCommand="{Binding RefreshNewlyAddedRecipeCommand}"
+           IsRefreshing="{Binding IsRefreshing}">
             <local:CustomListView.ItemTemplate>
                 <DataTemplate>
                     <local:CustomListViewCell>

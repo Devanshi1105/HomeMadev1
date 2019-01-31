@@ -28,14 +28,13 @@ namespace LetsCookApp.ViewModels
             TakePicture = new Command(async () => await TakePictureAsync());
             SelectPicture = new Command(async () => await SelectPictureAsync());
             CountryResponse = new CountryResponse();
-            FinishCommand = new Command(() => FinishCommandExecute());
-           // GetCountry();
+            FinishCommand = new Command(() => FinishCommandExecute()); 
         }
 
 
-        #endregion
+        #endregion 
 
-        #region Property
+        #region Property 
         private string email;
         public string Email
         {
@@ -358,8 +357,7 @@ namespace LetsCookApp.ViewModels
         }
         #endregion
 
-        #region Command
-
+        #region Command 
         public async Task TakePictureAsync()
         {
             //await CrossMedia.Current.Initialize();
@@ -558,14 +556,7 @@ namespace LetsCookApp.ViewModels
 
                     }
 
-                });
-
-
-                #endregion
-
-
-
-           
+                }); 
         }
 
         public void GetProfile()
@@ -659,17 +650,17 @@ namespace LetsCookApp.ViewModels
             {
                 CommonRequest obj = new CommonRequest();
 
-                UserDialogs.Instance.ShowLoading("Requesting..");
+               // UserDialogs.Instance.ShowLoading("Requesting..");
                 userManager.getCountry(obj, () =>
                {
-                   UserDialogs.Instance.HideLoading();
+                  // UserDialogs.Instance.HideLoading();
                    CountryResponse = userManager.CountryResponse;
 
                });
             }
             catch (Exception ex)
             {
-                UserDialogs.Instance.HideLoading();
+                //UserDialogs.Instance.HideLoading();
             }
 
             return CountryResponse;
@@ -685,6 +676,10 @@ namespace LetsCookApp.ViewModels
                 return Convert.ToBase64String(bytes);
             }
         }
+
+
+
+        #endregion
 
     }
 }

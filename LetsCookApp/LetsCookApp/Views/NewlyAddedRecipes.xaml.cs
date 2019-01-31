@@ -23,11 +23,27 @@ namespace LetsCookApp.Views
         }
         private void Search_Tapped(object sender, EventArgs e)
         {
-            var page = new SearchView();
-
-            Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
+            srchbar.Focus();
+            App.AppSetup.NewlyAddedRecipeViewModel.IsVisbleSearchBar = true;
         }
 
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var vm = App.AppSetup.NewlyAddedRecipeViewModel;
+            if (string.IsNullOrEmpty(e.NewTextValue))
+            {
+                listSubCatgory.ItemsSource = vm.NewlyAddedRecipes;
+            }
+            else
+            {
+                listSubCatgory.ItemsSource = vm.NewlyAddedRecipes.Where(x => x.Name.ToLower().Contains(e.NewTextValue.ToLower()));
+            }
+        }
+
+        private void srchbar_Unfocused(object sender, FocusEventArgs e)
+        {
+            App.AppSetup.NewlyAddedRecipeViewModel.IsVisbleSearchBar = false;
+        }
         private void Recipe_Tapped(object sender, EventArgs e)
         {
            var vm= App.AppSetup.CategoryViewModel;

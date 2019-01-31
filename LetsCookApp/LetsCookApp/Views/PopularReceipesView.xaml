@@ -22,8 +22,12 @@
             </ContentView>
         </StackLayout>
 
+        <SearchBar x:Name="srchbar" IsVisible="{Binding IsVisbleSearchBar}" Placeholder="Type to search" Text="{Binding SearchBarText}" TextColor="Black" PlaceholderColor="#9A9A9A" BackgroundColor="#e8e7e6" HorizontalOptions="FillAndExpand" VerticalOptions="Start" TextChanged="SearchBar_TextChanged" Unfocused="srchbar_Unfocused"/>
 
-        <local:CustomListView x:Name="listSubCatgory" ItemsSource="{Binding PopularRecipes}" HasUnevenRows="True"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorVisibility="None" >
+        <local:CustomListView x:Name="listSubCatgory" ItemsSource="{Binding PopularRecipes}" HasUnevenRows="True"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorVisibility="None" 
+                              IsPullToRefreshEnabled="True"
+           RefreshCommand="{Binding RefreshPopularReceipeCommand}"
+           IsRefreshing="{Binding IsRefreshing}" >
             <local:CustomListView.ItemTemplate>
                 <DataTemplate>
                     <local:CustomListViewCell>
@@ -55,7 +59,7 @@
 
                                     </Grid.RowDefinitions>
 
-                                    <local:CustomLabelLight  Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding name}" FontAttributes="Bold" TextColor="#e74c3c" FontSize="14" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0"  />
+                                    <local:CustomLabelLight  Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding name}" FontAttributes="Bold" TextColor="#e74c3c" FontSize="14" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0" LineBreakMode="TailTruncation" />
 
                                     <StackLayout  Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="0"  VerticalOptions="Start" Margin="10,0">
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start">

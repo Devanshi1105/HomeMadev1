@@ -4,6 +4,7 @@ using LetsCookApp.Models;
 using LetsCookApp.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,9 @@ namespace LetsCookApp.ViewModels
         #region Constructor    
 
         public ICommand GetCotegaryCommand { get; private set; }
+        public ICommand RefreshCotegaryCommand { get; private set; }
         public ICommand GetSubCotegaryCommand { get; private set; }
+        public ICommand RefreshSubCotegaryCommand { get; private set; }
         public ICommand GetDishViewCommand { get; private set; }
         public ICommand SavefavRecipeCommand { get; private set; }
         public ICommand SaveShoppingCommand { get; private set; }
@@ -26,7 +29,9 @@ namespace LetsCookApp.ViewModels
         public CategoryViewModel()
         {
             GetCotegaryCommand = new Command(() => GetCotegaryExecute());
+            RefreshCotegaryCommand = new Command(() => RefreshCotegaryExecute());
             GetSubCotegaryCommand = new Command(() => GetSubCotegaryExecute());
+            RefreshSubCotegaryCommand = new Command(() => RefreshSubCotegaryExecute());
             GetDishViewCommand = new Command(() => GetDishViewExecute());
             SavefavRecipeCommand = new Command(() => SavefavRecipeExecute());
             SaveShoppingCommand = new Command(() => SaveShoppingExecute());
@@ -34,15 +39,43 @@ namespace LetsCookApp.ViewModels
         }
 
 
-        public void test()
+        public void CategorybyLike(string str)
         {
-
-
+            var cat = Categories.Where(x => x.Title.Contains(str));
+            Categories = new ObservableCollection<Category>(cat); ;
         }
         #endregion
 
         #region Property
 
+        private bool _isVisbleSearchBar = false;
+        public bool IsVisbleSearchBar
+        {
+            get { return _isVisbleSearchBar; }
+            set
+            {
+                _isVisbleSearchBar = value;
+                RaisePropertyChanged(() => IsVisbleSearchBar);
+            }
+        }
+        private string searchBarText;
+
+        public string SearchBarText
+        {
+            get { return searchBarText; }
+            set { searchBarText = value; RaisePropertyChanged(() => SearchBarText); }
+        }
+
+        private bool _isRefreshing = false;
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set
+            {
+                _isRefreshing = value;
+                RaisePropertyChanged(() => IsRefreshing);
+            }
+        }
         private string shareEmail;
 
         public string ShareEmail
@@ -50,6 +83,8 @@ namespace LetsCookApp.ViewModels
             get { return shareEmail; }
             set { shareEmail = value; RaisePropertyChanged(() => ShareEmail); }
         }
+
+        
 
         private string firstName;
 
@@ -75,15 +110,15 @@ namespace LetsCookApp.ViewModels
             set { height = value; RaisePropertyChanged(() => TitleHeight); }
         }
 
-        private List<Category> categories;
-        public List<Category> Categories
+        private ObservableCollection<Category> categories;
+        public ObservableCollection<Category> Categories
         {
             get { return categories; }
             set { categories = value; RaisePropertyChanged(() => Categories); }
         }
 
-        private List<Recipe> recipe;
-        public List<Recipe> Recipes
+        private ObservableCollection<Recipe> recipe;
+        public ObservableCollection<Recipe> Recipes
         {
             get { return recipe; }
             set { recipe = value; RaisePropertyChanged(() => Recipes); }
@@ -147,6 +182,7 @@ namespace LetsCookApp.ViewModels
 
         #region Method
 
+        
         #endregion
 
         #region Command Excute
@@ -156,6 +192,7 @@ namespace LetsCookApp.ViewModels
             try
             {
                 var obj = new CommonRequest();
+                IsVisbleSearchBar = false;
                 UserDialogs.Instance.ShowLoading("Requesting..");
                 userManager.getAllCategory(obj, () =>
                 {
@@ -164,7 +201,7 @@ namespace LetsCookApp.ViewModels
                     if (categoryResponse.StatusCode == 200)
                     {
                         UserDialogs.Instance.HideLoading();
-                        Categories = new List<Category>(categoryResponse.Categories);
+                        Categories = new ObservableCollection<Category>(categoryResponse.Categories);
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             App.Current.MainPage = new Views.HomeView();
@@ -189,6 +226,52 @@ namespace LetsCookApp.ViewModels
                 UserDialogs.Instance.HideLoading();
                 UserDialogs.Instance.Alert(ex.Message , null, "OK");
             }
+        } 
+
+        public void RefreshCotegaryExecute()
+        {
+            try
+            {
+                IsRefreshing = true;
+                IsVisbleSearchBar = false;
+                SearchBarText = "";
+                var obj = new CommonRequest();
+                //UserDialogs.Instance.ShowLoading("Requesting..");
+                userManager.getAllCategory(obj, () =>
+                {
+                    IsRefreshing = false;
+                    var categoryResponse = userManager.CategoryResponse;
+                    if (categoryResponse.StatusCode == 200)
+                    {
+                       
+                        UserDialogs.Instance.HideLoading();
+                        Categories = new ObservableCollection<Category>(categoryResponse.Categories);
+                        //Device.BeginInvokeOnMainThread(() =>
+                        //{
+                        //    App.Current.MainPage = new Views.HomeView();
+                        //});
+
+                    }
+                },
+                 (requestFailedReason) =>
+                 {
+                     Device.BeginInvokeOnMainThread(() =>
+                     {
+                         IsRefreshing = false;
+
+                         UserDialogs.Instance.HideLoading();
+                         UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
+                     });
+                 });
+
+
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                IsRefreshing = false;
+                UserDialogs.Instance.Alert(ex.Message, null, "OK");
+            }
         }
 
         public void GetSubCotegaryExecute()
@@ -203,15 +286,23 @@ namespace LetsCookApp.ViewModels
             UserDialogs.Instance.ShowLoading("Requesting..");
             userManager.getSubCategory(obj, () =>
             {
+                UserDialogs.Instance.HideLoading();
                 var subCategoryResponse = userManager.SubCategoryResponse;
                 if (subCategoryResponse.StatusCode == 200)
                 {
-                    UserDialogs.Instance.HideLoading();
-                    Recipes = new List<Recipe>(subCategoryResponse.Recipes);
-                    Device.BeginInvokeOnMainThread(async () =>
+                    if (subCategoryResponse.Recipes != null && subCategoryResponse.Recipes.Count > 0)
                     {
-                        await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new SubCategoryView());
-                    });
+                        
+                        Recipes = new ObservableCollection<Recipe>(subCategoryResponse.Recipes);
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new SubCategoryView());
+                        });
+                    }
+                    else
+                    {
+                        UserDialogs.Instance.Alert("Recipe not added for this category", null, "OK");
+                    }
 
                 }
             },
@@ -233,6 +324,49 @@ namespace LetsCookApp.ViewModels
             }
         }
 
+        public void RefreshSubCotegaryExecute()
+        {
+            try
+            {
+                IsRefreshing = true;
+                IsVisbleSearchBar = false;
+                SearchBarText = "";
+                var obj = new SubCategoryRequest()
+                {
+                    CatId = CatId
+                };
+               
+                userManager.getSubCategory(obj, () =>
+                {
+                    IsRefreshing = false;
+                    var subCategoryResponse = userManager.SubCategoryResponse;
+                    if (subCategoryResponse.StatusCode == 200)
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        Recipes = new ObservableCollection<Recipe>(subCategoryResponse.Recipes); 
+
+                    }
+                },
+                 (requestFailedReason) =>
+                 {
+                     IsRefreshing = false;
+                     Device.BeginInvokeOnMainThread(() =>
+                     {
+                         UserDialogs.Instance.HideLoading();
+                         UserDialogs.Instance.Alert(requestFailedReason?.Message == null ? "Network Error" : requestFailedReason.Message, null, "OK");
+
+                     });
+                 });
+
+            }
+            catch (Exception ex)
+            {
+                IsRefreshing = false;
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert(ex.Message, null, "OK");
+            }
+        }
+
         public void GetDishViewExecute()
         {
             try
@@ -250,7 +384,7 @@ namespace LetsCookApp.ViewModels
                         UserDialogs.Instance.HideLoading();
                         dishViewResponse = new DishViewResponse() { Recipe = dishViewResponse.Recipe };
                         RecipeDishView = dishViewResponse.Recipe;
-                        Ingredients = RecipeDishView.Ingredients;//.FindAll(p=>p.IsItemSelected=false);
+                        Ingredients = RecipeDishView.Ingredients;
                         Device.BeginInvokeOnMainThread(async () =>
                         {
                             //await  App.Current.MainPage.Navigation.PushAsync(new DishView());
@@ -320,9 +454,9 @@ namespace LetsCookApp.ViewModels
             {
                 var obj = new SaveShoppingRequest()
                 {
-                    Recipe_Id = RecipeId,
-                    Ingredient_Id = IngredientIds,
-                    Member_Id = Convert.ToInt32(App.AppSetup.HomeViewModel.UserId)
+                    RecipeId = RecipeId,
+                    IngredientIds = IngredientIds,
+                    MemberId = Convert.ToInt32(App.AppSetup.HomeViewModel.UserId)
                 };
                 UserDialogs.Instance.ShowLoading("Requesting..");
                 userManager.SaveShopping(obj, () =>
@@ -362,7 +496,7 @@ namespace LetsCookApp.ViewModels
                 {
 
                     RecipeId = Convert.ToString(RecipeId),
-                    Email = ShareEmail,//"santoshkundkar12@gmail.com",//ShareEmail,
+                    Email = ShareEmail,
                     FirstName = FirstName,
                     LastName = LastName
                 };

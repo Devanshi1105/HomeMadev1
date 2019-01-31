@@ -15,8 +15,7 @@ namespace LetsCookApp.Views
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             var viewmodel = App.AppSetup.LoginViewModel;
-            BindingContext = viewmodel;
-
+            BindingContext = viewmodel; 
         }
 
         private async void Create_Clicked(object sender, EventArgs e)

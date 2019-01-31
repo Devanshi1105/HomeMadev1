@@ -19,9 +19,14 @@
                     <TapGestureRecognizer Tapped="Search_Tapped"/>
                 </ContentView.GestureRecognizers>
             </ContentView>
-        </StackLayout> 
-            <local:CustomListView  x:Name="masterMenuList" ItemsSource="{Binding Grouped}" 
-                                  IsGroupingEnabled="True" GroupDisplayBinding="{Binding LongName}"  GroupShortNameBinding="{Binding ShortName}"  
+        </StackLayout>
+
+        <SearchBar x:Name="srchbar" IsVisible="{Binding IsVisbleSearchBar}" Placeholder="Type to search" Text="{Binding SearchBarText}" TextColor="Black" PlaceholderColor="#9A9A9A" BackgroundColor="#e8e7e6" HorizontalOptions="FillAndExpand" VerticalOptions="Start" TextChanged="SearchBar_TextChanged" Unfocused="srchbar_Unfocused"/>
+        <local:CustomListView  x:Name="masterMenuList" ItemsSource="{Binding Grouped}" 
+                                  IsGroupingEnabled="True" GroupDisplayBinding="{Binding LongName}"  GroupShortNameBinding="{Binding ShortName}"   
+                                    IsPullToRefreshEnabled="True"
+           RefreshCommand="{Binding RefreshShoppingListByUserIdCommand}"
+           IsRefreshing="{Binding IsRefreshing}"
          HasUnevenRows="True" ItemSelected="masterMenuList_ItemSelected"     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorVisibility="None" BackgroundColor="White" >
                 <local:CustomListView.ItemTemplate>
                     <DataTemplate>
