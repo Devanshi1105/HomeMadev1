@@ -76,6 +76,13 @@ namespace LetsCookApp.ViewModels
             get { return recipeId; }
             set { recipeId = value; RaisePropertyChanged(() => RecipeId); }
         }
+         private string favorite;
+
+        public string Favorite
+        {
+            get { return favorite; }
+            set { favorite = value; RaisePropertyChanged(() => Favorite); }
+        }
 
 
         #endregion
@@ -177,13 +184,14 @@ namespace LetsCookApp.ViewModels
                 {
                     Recipe_Id = RecipeId,
                     Comments = "This is bad recipe",
-                    Favorite = "No",
+                    Favorite = Favorite,
                     Member_Id = Convert.ToInt32(App.AppSetup.HomeViewModel.UserId)
                 };
                 UserDialogs.Instance.ShowLoading("Requesting..");
                 userManager.SavefaRrecipe(obj, () =>
                 {
                     UserDialogs.Instance.HideLoading();
+                    Favorite = "";
                     var savefaRrecipeResponse = userManager.SavefaRrecipeResponse;
                     if (savefaRrecipeResponse.StatusCode == 200)
                     {

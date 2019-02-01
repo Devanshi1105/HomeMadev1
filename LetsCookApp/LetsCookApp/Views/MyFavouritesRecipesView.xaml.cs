@@ -51,7 +51,7 @@ namespace LetsCookApp.Views
         private void Favorate_Click(object sender, EventArgs e)
         {
             var vm = App.AppSetup.MyFavouritesRecipesViewModel;
-            var recipe = ((Image)sender).BindingContext as FavouriteRecipe;
+            var recipe = ((Image)sender).BindingContext as FavouriteRecipe; 
             vm.RecipeId = Convert.ToInt32(recipe.Id);
             vm.SavefavRecipeCommand.Execute(null);
             vm.FavouriteRecipes.Remove(recipe);

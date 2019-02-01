@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LetsCookApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace LetsCookApp.Models
     }
 
 
-    public class FavouriteRecipe
+    public class FavouriteRecipe : BaseViewModel
     {
         public string Id { get; set; }
         public string Title { get; set; }
@@ -26,7 +27,7 @@ namespace LetsCookApp.Models
         public string TotalTime { get; set; }
         public string Calories { get; set; }
         public string IngredientCount { get; set; }
-        public string Image { get; set; }
+        public string Image { get; set; } 
 
     }
 

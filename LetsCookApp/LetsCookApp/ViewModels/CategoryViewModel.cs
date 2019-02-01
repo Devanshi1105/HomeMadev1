@@ -167,6 +167,13 @@ namespace LetsCookApp.ViewModels
             get { return recipeId; }
             set { recipeId = value; RaisePropertyChanged(() => RecipeId); }
         }
+          private string favorite;
+
+        public string Favorite
+        {
+            get { return favorite; }
+            set { favorite = value; RaisePropertyChanged(() => Favorite); }
+        }
 
 
         private string subCategoryTitle;
@@ -416,7 +423,7 @@ namespace LetsCookApp.ViewModels
                 {
                     Recipe_Id = RecipeId,
                     Comments = "This is nice recipe",
-                    Favorite = "Yes",
+                    Favorite = Favorite,
                     Member_Id = Convert.ToInt32(App.AppSetup.HomeViewModel.UserId)
                 };
                 UserDialogs.Instance.ShowLoading("Requesting..");

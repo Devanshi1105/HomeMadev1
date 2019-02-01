@@ -44,7 +44,23 @@ namespace LetsCookApp.Views
             var vm = App.AppSetup.CategoryViewModel;
             var recipe = ((Image)sender).BindingContext as Recipe;
             vm.RecipeId = Convert.ToInt32(recipe.Id);
+
+            FileImageSource source = (FileImageSource)((Image)sender).Source; 
+            string fileName = source.File;
+
+            if (fileName == "favorite")
+            {
+                vm.Favorite = "Yes";
+                ((Image)sender).Source = "favred";
+            }
+            else
+            {
+                vm.Favorite = "No";
+                ((Image)sender).Source = "favorite";
+            }
+
             vm.SavefavRecipeCommand.Execute(null);
+           
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)

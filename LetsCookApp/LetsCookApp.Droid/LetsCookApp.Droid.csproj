@@ -583,6 +583,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\loginarrow.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\loginarrow.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\loginarrow.png" />
+    <AndroidResource Include="Resources\drawable\favred.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
