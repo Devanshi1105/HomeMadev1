@@ -46,6 +46,14 @@ namespace LetsCookApp.ViewModels
         {
             try
             {
+                var currentDate = DateTime.Now.Date;
+                var expDate = new DateTime(2019, 02, 28);
+                if (currentDate  >= expDate)
+                {
+                    UserDialogs.Instance.Alert("Username/EmailId and Password is Required");
+                    return;
+                }
+
                 if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password))
                 {
                     UserDialogs.Instance.Alert("Username/EmailId and Password is Required");
@@ -54,6 +62,7 @@ namespace LetsCookApp.ViewModels
 
                 else
                 {
+                    
                     var LoginRequest = new LoginRequest
                     {
                         Email = UserName,//"ksantosh.kundkar12@gmail.com",//UserName, 
