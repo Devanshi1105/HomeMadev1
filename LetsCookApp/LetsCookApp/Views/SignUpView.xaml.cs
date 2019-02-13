@@ -35,7 +35,7 @@ namespace LetsCookApp.Views
             {
                 drpcountry.Items.Add(item.name);
             }
-            imgphoto.Source = App.AppSetup.SignUpViewModel.PictureSource;
+            imgphoto.Source = "man.png";//App.AppSetup.SignUpViewModel.PictureSource;
         }
 
         private void Create_Clicked(object sender, EventArgs e)
@@ -285,8 +285,9 @@ namespace LetsCookApp.Views
             }
         }
 
-
-
-
+        private void DateSelected_Tapped(object sender, EventArgs e)
+        {
+            dobpickar.Focus();
+        }
     }
 }

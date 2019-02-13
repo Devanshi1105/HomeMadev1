@@ -145,7 +145,7 @@ namespace LetsCookApp.ViewModels
             get { return hobbies; }
             set { hobbies = value; RaisePropertyChanged(() => Hobbies); }
         }
-        private string picture;
+        private string picture="man.png";
         public string Picture
         {
             get { return picture; }

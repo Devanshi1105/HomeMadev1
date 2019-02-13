@@ -39,10 +39,11 @@ VerticalOptions="Center"  />
 
                     <!--<StackLayout Orientation="Vertical" HeightRequest="200" HorizontalOptions="FillAndExpand"  BackgroundColor="#e8e7e6" Spacing="0"  Opacity="0.8" 
 VerticalOptions="Center" Margin="12,10,12,5">-->
-                    <Grid HeightRequest="200" HorizontalOptions="FillAndExpand"  BackgroundColor="#e8e7e6"    Opacity="0.8" 
+                    <Grid HeightRequest="210" HorizontalOptions="FillAndExpand"  BackgroundColor="#e8e7e6"    Opacity="0.8" 
 VerticalOptions="FillAndExpand" Margin="12,10,12,10">   
                                 <Grid.RowDefinitions> 
                                     <RowDefinition Height="180"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50"/>
@@ -53,7 +54,7 @@ VerticalOptions="FillAndExpand" Margin="12,10,12,10">
                                 <controls:CircleImage 
 Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" 
 x:Name="imgphoto" BorderColor="Red" BorderThickness="1" Source="{Binding Picture}" 
-Aspect="AspectFit"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,10,0,10" />
+Aspect="AspectFit"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,10,0,5" />
 
                                 <Image x:Name="imgPlus" Grid.Column="1" Grid.Row="0" 
 Source="Imgplus.png"  Aspect="AspectFit" HorizontalOptions="End"  TranslationX="-25" TranslationY="15"
@@ -62,7 +63,13 @@ VerticalOptions="Start"  >
                                         <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped_1" NumberOfTapsRequired="1"/>
                                     </Image.GestureRecognizers>
                                 </Image>
-                            </Grid>
+
+                        <local:CustomLabelRegular Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Text="Add Picture"  TextColor="Gray" FontSize="18"  HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,0,0,10">
+                            <local:CustomLabelRegular.GestureRecognizers>
+                                <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped_1" NumberOfTapsRequired="1"/>
+                            </local:CustomLabelRegular.GestureRecognizers>
+                        </local:CustomLabelRegular>
+                    </Grid>
                         
                     
                     
@@ -156,9 +163,13 @@ Text="{Binding LastName}" x:Name="entLastName"  />
                             <StackLayout  Grid.Column="0" Grid.Row="8" VerticalOptions="FillAndExpand" BackgroundColor="#e8e7e6"   HorizontalOptions="FillAndExpand" 
                            Spacing="10" Orientation="Horizontal" >
 
-                                <local:CustomLabelRegular Margin="5,0,0,0" Text="Date of Birth"  TextColor="Gray" FontSize="18"  HorizontalTextAlignment="Center"     HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
-                                 
-                                <local:NullableDatePicker   TextColor="Black" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"    WidthRequest="200" x:Name="dobpickar" DateSelected="dobpickar_DateSelected" />
+                                <local:CustomLabelRegular Margin="5,0,0,0" Text="Date of Birth"  TextColor="Gray" FontSize="18"  HorizontalTextAlignment="Center"     HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                                    <local:CustomLabelRegular.GestureRecognizers>
+                                        <TapGestureRecognizer  Tapped="DateSelected_Tapped" NumberOfTapsRequired="1"/>
+                                    </local:CustomLabelRegular.GestureRecognizers>
+                                </local:CustomLabelRegular>
+
+                                    <local:NullableDatePicker   TextColor="Black" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"    WidthRequest="200" x:Name="dobpickar" DateSelected="dobpickar_DateSelected" />
 
                             </StackLayout> 
 
