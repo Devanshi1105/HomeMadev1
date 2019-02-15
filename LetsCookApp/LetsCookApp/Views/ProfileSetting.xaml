@@ -28,10 +28,11 @@
 
                     <!--<StackLayout Orientation="Vertical" HeightRequest="200" HorizontalOptions="FillAndExpand"  BackgroundColor="#e8e7e6" Spacing="0"  Opacity="0.8" 
 VerticalOptions="Center" Margin="12,10,12,5">-->
-                    <Grid HeightRequest="200" HorizontalOptions="FillAndExpand"  BackgroundColor="White"   
+                    <Grid HeightRequest="220" HorizontalOptions="FillAndExpand"  BackgroundColor="White"   
 VerticalOptions="FillAndExpand" Margin="12,10,12,10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="180"/>
+                            <RowDefinition Height="30"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
@@ -49,8 +50,13 @@ Source="Imgplus.png"  Aspect="AspectFit" HorizontalOptions="End"  TranslationX="
 VerticalOptions="Start"  >
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped_1" NumberOfTapsRequired="1"/>
-                            </Image.GestureRecognizers>
+                            </Image.GestureRecognizers>  
                         </Image>
+                        <local:CustomLabelRegular Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Text="Add Picture"  TextColor="Gray" FontSize="18"  HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Start">
+                            <local:CustomLabelRegular.GestureRecognizers>
+                                <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped_1" NumberOfTapsRequired="1"/>
+                            </local:CustomLabelRegular.GestureRecognizers>
+                        </local:CustomLabelRegular>
                     </Grid>
 
 
